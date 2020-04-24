@@ -1,11 +1,10 @@
-
+var sessionStorage
 var curDiv=document.getElementById('welcomeDiv');
 
 function show(param_div_id) {
     curDiv.style.display = "none";
     curDiv=document.getElementById(param_div_id);
     document.getElementById(param_div_id).style.display = "block";
-    //document.getElementById('welcomeDiv').innerHTML = document.getElementById(param_div_id).innerHTML;
 }
 
 $( "#register" ).click(function() {
@@ -13,9 +12,7 @@ $( "#register" ).click(function() {
 });
 
 $( "#login" ).click(function() {
-    //show('loginDiv')
-    show('gameDiv');
-    beginGame();
+    show('loginDiv');
 });
 
 $( "#about" ).click(function() {
@@ -27,15 +24,6 @@ $( "#about" ).click(function() {
         }
     };
 });
-
-
-
-$( "#game" ).click(function() {
-    show('aboutDiv');
-    beginGame();
-
-});
-
 var modal = document.getElementById("myModal");
 // Get the <span> element that closes the modal
 var closeSpan = document.getElementsByClassName("close")[0];
@@ -49,4 +37,27 @@ window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
+}
+
+$(document).ready(function() {
+    sessionStorage.setItem("p", "p");
+});
+function checkIfUserExist()
+{
+    var username = $("#loginUsername"). val();
+    var pass=$("#loginPassword"). val();
+    var user = sessionStorage.getItem(username);
+    if (user!=null && user==pass)
+        alert("Login successfully");
+    else alert("user don't exist");
+}
+function addNewUser() {
+    var username = $("#username"). val();
+    var pass=$("#password"). val();
+    sessionStorage.setItem(username, pass);
+}
+
+function startGame() {
+    show('gameDiv');
+    beginGame();
 }
