@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <script src="./jquery-3.4.1.slim.min.js"></script>
+    <script type="text/javascript" src="./app.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<div id="headline" style="background-color: #47c9af" >
+    headline
+</div>
+<div id='cssmenu'>
+    <ul>
+        <li class='active' id='welcome'><a   href='#'>welcome</a></li>
+        <li id='register'><a ref='#'>register</a></li>
+        <li id='login'><a href='#'>login</a></li>
+        <li id='about'><a href='#'>about</a></li>
+    </ul>
+</div>
+<div class="content" id="welcomeDiv">
+    x
+</div>
+<div class="content" id="registerDiv" style='display:none'>
+    r
+</div>
+<div class="content" id="loginDiv" style='display:none'>
+    l
+</div>
+<div id="aboutDiv" style='display:none'>
+    למחוק אחר כך
+</div>
+<div class="content" id="gameDiv" style='display:none'>
+    <div id="score">
+        <label for="lblScore">SCORE:</label>
+        <input id="lblScore" type="text" />
+    </div>
+    <div id="time">
+        <label for="lblTime">TIME:</label>
+        <input id="lblTime" type="text" />
+    </div>
+    <div id="game">
+        <canvas id="canvas" height="600" width="600"></canvas>
+    </div>
+</div>
+
+
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>המשחק של עומר וצליל</p>
+        <p>נעשה שימוש ב-template מהקישור הבא:</p>
+        <p>https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal</p>
+    </div>
+
+</div>
+
+
+<script type="text/javascript" src="./menu.js"></script>
+</body>
+</html>

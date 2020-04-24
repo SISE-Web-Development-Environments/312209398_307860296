@@ -6,19 +6,93 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+var lastDirection;
+var monsterImage;
+var numOfMonsters=2;
+var monstersPosition = new Array();
 
-$(document).ready(function() {
+
+/*$(document).ready(function() {
 	context = canvas.getContext("2d");
 	Start();
-});
+});*/
+function beginGame() {
+	context = canvas.getContext("2d");
+	Start();
+}
+
+function drawMonster(center) {
+	context.drawImage(monsterImage, center.x, center.y,60,30);
+}
+
+function drawRightPacman(center) {
+	context.beginPath();
+	context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+	context.lineTo(center.x, center.y);
+	context.fillStyle = pac_color; //color
+	context.fill();
+	context.beginPath(); //pacman eye
+	context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+	context.fillStyle = "black"; //color
+	context.fill();
+}
+
+function drawLeftPacman(center) {
+	context.beginPath();
+	context.arc(center.x, center.y, 30, 1.15 * Math.PI, 0.85 * Math.PI); // half circle
+	context.lineTo(center.x, center.y);
+	context.fillStyle = pac_color; //color
+	context.fill();
+	context.beginPath(); //pacman eye
+	context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+	context.fillStyle = "black"; //color
+	context.fill();
+}
+
+function drawUpPacman(center) {
+	context.beginPath();
+	context.arc(center.x, center.y, 30, 1.65 * Math.PI, 1.35 * Math.PI); // half circle
+	context.lineTo(center.x, center.y);
+	context.fillStyle = pac_color; //color
+	context.fill();
+	context.beginPath(); //pacman eye
+	context.arc(center.x - 5, center.y + 15, 5, 0, 2* Math.PI); // circle
+	context.fillStyle = "black"; //color
+	context.fill();
+
+}
+
+function drawDownPacman(center) {
+	context.beginPath();
+	context.arc(center.x, center.y, 30, 0.65 * Math.PI, 0.35 * Math.PI); // half circle
+	context.lineTo(center.x, center.y);
+	context.fillStyle = pac_color; //color
+	context.fill();
+	context.beginPath(); //pacman eye
+	context.arc(center.x + 5, center.y - 15, 5, 0, 2* Math.PI); // circle
+	context.fillStyle = "black"; //color
+	context.fill();
+
+}
+
+
 
 function Start() {
 	board = new Array();
 	score = 0;
+	monsterImage=new Image();
+	monsterImage.src="monster.png"
+	monsterImage.style.maxWidth = "10px";
 	pac_color = "yellow";
+	lastDirection="right";
 	var cnt = 100;
 	var food_remain = 50;
 	var pacman_remain = 1;
+	var monster_remain=numOfMonsters;
+	var t;
+	for (t = 0; t < numOfMonsters; t++) {
+		monstersPosition[t]=(new Object())
+	}
 	start_time = new Date();
 	for (var i = 0; i < 10; i++) {
 		board[i] = new Array();
@@ -42,7 +116,13 @@ function Start() {
 					shape.j = j;
 					pacman_remain--;
 					board[i][j] = 2;
-				} else {
+				}else if(randomNum < (1.0 * (pacman_remain + food_remain+numOfMonsters)) / cnt&&monster_remain>0&&(i==0||i==9||j==0||j==9)){
+					monstersPosition[numOfMonsters-monster_remain].i = i;
+					monstersPosition[numOfMonsters-monster_remain].j = j;
+					monster_remain--;
+					board[i][j] = 3;
+				}
+				else {
 					board[i][j] = 0;
 				}
 				cnt--;
@@ -106,26 +186,33 @@ function Draw() {
 			var center = new Object();
 			center.x = i * 60 + 30;
 			center.y = j * 60 + 30;
-			if (board[i][j] == 2) {
+			if (board[i][j] == 2) { //pacman drawing
+				if(lastDirection==="right")
+					drawRightPacman(center);
+				else if (lastDirection==="left")
+					drawLeftPacman(center)
+				else if(lastDirection==="up")
+					drawUpPacman(center)
+				else if (lastDirection==="down")
+					drawDownPacman(center)
+				else drawRightPacman(center)
+			}else if(board[i][j] == 3){
+				drawMonster(center)
+			}
+			else if (board[i][j] == 1) { // food circle drawing
 				context.beginPath();
-				context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
-				context.lineTo(center.x, center.y);
-				context.fillStyle = pac_color; //color
-				context.fill();
-				context.beginPath();
-				context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+				context.arc(center.x, center.y, 15, 0, 2 * Math.PI);
 				context.fillStyle = "black"; //color
-				context.fill();
-			} else if (board[i][j] == 1) {
-				context.beginPath();
-				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-				context.fillStyle = "black"; //color
-				context.fill();
-			} else if (board[i][j] == 4) {
+				context.fill(); //food
+			} else if (board[i][j] == 4) { //wall drawing
 				context.beginPath();
 				context.rect(center.x - 30, center.y - 30, 60, 60);
 				context.fillStyle = "grey"; //color
 				context.fill();
+			}else if (board[i][j] == 3){
+				for (var k = 0; k < numOfMonsters; k++){
+					drawMonster(center)
+				}
 			}
 		}
 	}
@@ -137,27 +224,38 @@ function UpdatePosition() {
 	if (x == 1) {
 		if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
 			shape.j--;
+			lastDirection="up";
 		}
 	}
 	if (x == 2) {
 		if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
 			shape.j++;
+			lastDirection="down";
+
 		}
 	}
 	if (x == 3) {
 		if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {
 			shape.i--;
+			lastDirection="left";
+
 		}
 	}
 	if (x == 4) {
 		if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
 			shape.i++;
+			lastDirection="right";
 		}
 	}
 	if (board[shape.i][shape.j] == 1) {
 		score++;
 	}
 	board[shape.i][shape.j] = 2;
+	for (var i=0;i<numOfMonsters;i++){
+		board[monstersPosition[i].i][monstersPosition[i].j]=0;
+		monsterMove(monstersPosition[i]);
+		board[monstersPosition[i].i][monstersPosition[i].j]=3;
+		}
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
 	if (score >= 20 && time_elapsed <= 10) {
@@ -166,7 +264,40 @@ function UpdatePosition() {
 	if (score == 50) {
 		window.clearInterval(interval);
 		window.alert("Game completed");
+	}if(checkLoss()){
+		window.clearInterval(interval);
+		window.alert("Game Loss");
 	} else {
 		Draw();
 	}
 }
+
+
+function monsterMove(monsterPos) {
+	if (monsterPos.i>0&&monsterPos.i > shape.i&& board[monsterPos.i - 1][monsterPos.j] != 4 && board[monsterPos.i - 1][monsterPos.j] != 3) {
+			monsterPos.i--;
+	}
+	else if (monsterPos.j>0&&monsterPos.j > shape.j&& board[monsterPos.i][monsterPos.j - 1] != 4 && board[monsterPos.i][monsterPos.j - 1] != 3) {
+			monsterPos.j--;
+	}
+	else if (monsterPos.i<9&&monsterPos.i < shape.i && board[monsterPos.i + 1][monsterPos.j] != 4 && board[monsterPos.i + 1][monsterPos.j] != 3) {
+			monsterPos.i++;
+	}
+	else if (monsterPos.j<9&&monsterPos.j < shape.j&&monsterPos.j > 0 && board[monsterPos.i][monsterPos.j + 1] != 4 && board[monsterPos.i][monsterPos.j + 1] != 3) {
+			monsterPos.j++;
+	}
+}
+
+function checkLoss() {
+	for (var i=0;i<numOfMonsters;i++){
+		if(monstersPosition[i].i==shape.i&&monstersPosition[i].j==shape.j)
+			return true;
+	}
+	return false;
+}
+
+
+
+
+
+
