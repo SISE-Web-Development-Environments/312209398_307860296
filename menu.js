@@ -1,5 +1,10 @@
 var sessionStorage
 var curDiv=document.getElementById('welcomeDiv');
+var currUser;
+var keySet=null;
+var colour;
+var userMonstersNum;
+var userMaxTime;
 
 function show(param_div_id) {
     curDiv.style.display = "none";
@@ -7,11 +12,11 @@ function show(param_div_id) {
     document.getElementById(param_div_id).style.display = "block";
 }
 
-$( "#register" ).click(function() {
+$( ".register" ).click(function() {
     show('registerDiv')
 });
 
-$( "#login" ).click(function() {
+$( ".login" ).click(function() {
     show('loginDiv');
 });
 
@@ -29,9 +34,9 @@ var modal = document.getElementById("myModal");
 var closeSpan = document.getElementsByClassName("close")[0];
 
 // When the user clicks on <span> (x), close the modal
-closeSpan.onclick = function() {
+/*closeSpan.onclick = function() {
     modal.style.display = "none";
-}
+}*/
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == modal) {
@@ -47,8 +52,10 @@ function checkIfUserExist()
     var username = $("#loginUsername"). val();
     var pass=$("#loginPassword"). val();
     var user = sessionStorage.getItem(username);
-    if (user!=null && user==pass)
+    if (user!=null && user==pass){
         alert("Login successfully");
+        currUser=user;
+    }
     else alert("user don't exist");
 }
 function addNewUser() {
@@ -61,3 +68,47 @@ function startGame() {
     show('gameDiv');
     beginGame();
 }
+
+$('#loginForm').submit(function () {
+    checkIfUserExist()
+    if(currUser)
+        startGame();
+    return false;
+});
+
+$('#submitSettimgs').click(function () {
+
+});
+
+function keySetSelect(sel) {
+    keySet=sel.options[sel.selectedIndex].value;
+}
+function pacColourSelect(sel) {
+    colour=sel.options[sel.selectedIndex].value;
+}
+function maxTimeSelect(inp){
+    userMaxTime=inp.value;
+}
+function monsterAmountSelect(inp){
+    userMonstersNum=inp.value;
+}
+
+$("#randomSettings").click(function() {
+    var random=Math.floor(Math.random() * 3);
+    if(random==0){
+        keySet='letters';
+        $("#letters").selected(true);
+    }
+    if(random==1){
+        keySet='arrows';
+        $("#arrows").selected(true);
+    }
+    if(random==2){
+        keySet='nums';
+        $("#nums").selected(true);
+    }
+    console.log(keySet);
+});
+
+
+

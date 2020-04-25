@@ -132,3 +132,30 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+body {
+    margin: 0;
+}
+
+#welcomeDiv img {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+#welcomeDiv {
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+    align-content: center;
+}
+
+#welcomeButtonsDiv div{
+    height:20px;
+    width:100px;
+    margin: -20px -50px;
+    position:relative;
+    top:50%;
+    left:50%;
+}
+
+

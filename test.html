@@ -4,227 +4,48 @@
     <meta charset="UTF-8">
     <title>test</title>
     <script src="./jquery-3.4.1.slim.min.js"></script>
-    <script type="text/javascript" src="./app.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="./jquery.validate.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
-<div id="headline" style="background-color: #47c9af" >
-    headline
-</div>
-<div id='cssmenu'>
-    <ul>
-        <li class='active' id='welcome'><a   href='#'>welcome</a></li>
-        <li id='register'><a ref='#'>register</a></li>
-        <li id='login'><a href='#'>login</a></li>
-        <li id='about'><a href='#'>about</a></li>
-    </ul>
-</div>
-<div class="content" id="welcomeDiv">
-    x
-</div>
-<div class="content" id="registerDiv" style='display:none'>
-    <!--sign up-->
-    <div class="classSignUp">
-        <label style="align-content: center">Sign Up</label>
-        <form id="signupForm" method="post" class="form-horizontal" action="">
+    <div>
+        <form class="form-horizontal" id="settingsForm">
             <div class="form-group">
-                <label class="col-sm-4 control-label" for="username">Username</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" />
-                </div>
+                <label for="move">choose key set:</label>
+                <select id="move" name="move" onChange="keySetSelect(this);">
+                    <option id="letters" value="letters">Left letters</option>
+                    <option value="arrows">Arrows</option>
+                    <option value="nums">Nums</option>
+                </select>
             </div>
             <div class="form-group">
-                <label class="col-sm-4 control-label" for="datepicker" >Birth Date</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" id="datepicker" name="date" placeholder="date" />
-                </div>
+                <label for="pacColour">Choose pacman colour:</label>
+                <select id="pacColour" name="pacColour" onChange="pacColourSelect(this);">
+                    <option value="yellow">yellow</option>
+                    <option value="brown">brown</option>
+                    <option value="turquoise">turquoise</option>
+                </select>
             </div>
-
-            <div class="form-group">
-                <label class="col-sm-4 control-label" for="email">Email</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" id="email" name="email" placeholder="Email" />
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-4 control-label" for="password">Password</label>
-                <div class="col-sm-5">
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" />
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-4 control-label" for="confirm_password">Confirm password</label>
-                <div class="col-sm-5">
-                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm password" />
-                </div>
+            <div class="form-group" >
+                <label for="maxTime">Choose maximum game time:</label>
+                <input id="maxTime" type="text" oninput="maxTimeSelect(this)"/>
             </div>
             <div class="form-group">
-                <div class="col-sm-9 col-sm-offset-4">
-                    <button type="submit" class="btn btn-primary" name="signup" value="Sign up" >Sign up</button>
-                </div>
+                <label for="monstersCnt">Choose amount of monsters:</label>
+                <input id="monstersCnt" type="text" oninput="monsterAmountSelect(this)" />
+            </div>
+            <div class="form-group">
+                <button type='button' id="randomSettings">Random settings</button>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" name="submitSettimgs"  id="submitSettimgs">Start game</button>
             </div>
         </form>
     </div>
-</div>
-<div class="content" id="loginDiv" style='display:none'>
-    <div class="classLogin">
-        <label style="align-content: center">Login</label>
-        <form id="loginForm" method="post" class="form-horizontal" action="">
-            <div class="form-group">
-                <label class="col-sm-4 control-label" for="loginUsername">Username</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" id="loginUsername" name="username" placeholder="Username" />
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-4 control-label" for="loginPassword">Password</label>
-                <div class="col-sm-5">
-                    <input type="password" class="form-control" id="loginPassword" name="password" placeholder="Password" />
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-9 col-sm-offset-4">
-                    <button type="login" class="btn btn-primary" name="login" onclick="checkIfUserExist()" value="Log in">Log in</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-<div id="aboutDiv" style='display:none'>
-
-</div>
-<div class="content" id="gameDiv" style='display:none'>
-    <div id="score">
-        <label for="lblScore">SCORE:</label>
-        <input id="lblScore" type="text" />
-    </div>
-    <div id="time">
-        <label for="lblTime">TIME:</label>
-        <input id="lblTime" type="text" />
-    </div>
-    <div id="game">
-        <canvas id="canvas" height="600" width="600"></canvas>
-    </div>
-</div>
-
-
-<div id="myModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>המשחק של עומר וצליל</p>
-        <p>נעשה שימוש ב-template מהקישור הבא:</p>
-        <p>https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal</p>
-    </div>
-
-</div>
-
 
 <script type="text/javascript" src="./menu.js"></script>
-<script>
-    $.validator.setDefaults( {
-        submitHandler: function () {
-            addNewUser();
-            alert( "New user added successfully!" );
-        }
-    } );
-    $( document ).ready( function () {
-        $( "#signupForm" ).validate( {
-            rules: {
-                username: {
-                    required: true,
-                    minlength: 2
-                },
-                date: {
-                    required: true,
-                    validdate:true
-                },
-                password: {
-                    required: true,
-                    minlength: 6,
-                    pwcheck:true
-                },
-                confirm_password: {
-                    required: true,
-                    minlength: 6,
-                    equalTo: "#password"
-                },
-                email: {
-                    required: true,
-                    email: true
-                },
-
-            },
-            messages: {
-                username: {
-                    required: "Please enter a username",
-                    minlength: "Your username must consist of at least 2 characters"
-                },
-                date: {
-                    required: "Please provide a birth date",
-                    validdate:"Please enter valid a date format dd/mm/yyyy"
-                },
-                password: {
-                    required: "Please provide a password",
-                    minlength: "Your password must be at least 6 characters long",
-                    pwcheck: "Your password must include characters and digits"
-                },
-                confirm_password: {
-                    required: "Please provide a password",
-                    minlength: "Your password must be at least 6 characters long",
-                    equalTo: "Please enter the same password as above"
-
-                },
-                email: "Please enter a valid email address",
-            },
-            errorElement: "em",
-            errorPlacement: function ( error, element ) {
-                // Add the `help-block` class to the error element
-                error.addClass( "help-block" );
-
-                if ( element.prop( "type" ) === "checkbox" ) {
-                    error.insertAfter( element.parent( "label" ) );
-                } else {
-                    error.insertAfter( element );
-                }
-            },
-            highlight: function ( element, errorClass, validClass ) {
-                $( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
-            },
-            unhighlight: function (element, errorClass, validClass) {
-                $( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
-            }
-        } );
-    } );
-</script>
-<script>
-    /*	set datepicker today date*/
-    $(function(){
-        $.datepicker.setDefaults(
-            $.extend( $.datepicker.regional[ '' ] )
-        );
-        $( '#datepicker' ).datepicker({maxDate:0});
-    });
-
-    /check date formate/
-    jQuery.validator.addMethod("validdate", function(value, element) {
-        return this.optional(element) ||  /^\d{1,2}\/\d{1,2}\/\d{4}$/.test(value);
-    }, "Please enter valid date.");
-
-    /check pass contain char and digits/
-    $.validator.addMethod("pwcheck", function(value) {
-        return /^[A-Za-z0-9\d=!\-@._]$/.test(value) // consists of only these
-            && /[a-z]/.test(value) // has a lowercase letter
-            && /\d/.test(value) // has a digit
-    });
-</script>
 </body>
 </html>
