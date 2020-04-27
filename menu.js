@@ -13,7 +13,7 @@ function show(param_div_id) {
 }
 
 $( ".register" ).click(function() {
-    show('registerDiv')
+    show('registerDiv');
 });
 
 $( ".login" ).click(function() {

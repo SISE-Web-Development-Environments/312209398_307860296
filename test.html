@@ -11,40 +11,114 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
-    <div>
-        <form class="form-horizontal" id="settingsForm">
-            <div class="form-group">
-                <label for="move">choose key set:</label>
-                <select id="move" name="move" onChange="keySetSelect(this);">
-                    <option id="letters" value="letters">Left letters</option>
-                    <option value="arrows">Arrows</option>
-                    <option value="nums">Nums</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="pacColour">Choose pacman colour:</label>
-                <select id="pacColour" name="pacColour" onChange="pacColourSelect(this);">
-                    <option value="yellow">yellow</option>
-                    <option value="brown">brown</option>
-                    <option value="turquoise">turquoise</option>
-                </select>
-            </div>
-            <div class="form-group" >
-                <label for="maxTime">Choose maximum game time:</label>
-                <input id="maxTime" type="text" oninput="maxTimeSelect(this)"/>
-            </div>
-            <div class="form-group">
-                <label for="monstersCnt">Choose amount of monsters:</label>
-                <input id="monstersCnt" type="text" oninput="monsterAmountSelect(this)" />
-            </div>
-            <div class="form-group">
-                <button type='button' id="randomSettings">Random settings</button>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary" name="submitSettimgs"  id="submitSettimgs">Start game</button>
-            </div>
-        </form>
+<label style="align-content: center">Game Settings</label>
+<form id="signupForm" method="post" class="form-horizontal" action="">
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="keyup">Key Up:</label>
+        <div class="col-sm-1">
+            <input type="text"  class="form-control" id="keyup" name="keyup" placeholder="keyup" maxlength="1" onkeydown="keyup_Output.value=event.keyCode;keyup.value=''"/>
+        </div>
+        <output style="color: red"  id="keyup_Output">38</output>
     </div>
+        <div class="form-group">
+        <label class="col-sm-4 control-label" for="keydown">Key Down:</label>
+        <div class="col-sm-1">
+            <input type="text"  class="form-control" id="keydown" name="keydown" placeholder="keydown" maxlength="1" onkeydown="keydown_Output.value=event.keyCode;keydown.value=''"/>
+        </div>
+        <output style="color: red"  id="keydown_Output">40</output>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="keyleft">Key Left:</label>
+        <div class="col-sm-1">
+            <input type="text"  class="form-control" id="keyleft" name="keyleft" placeholder="keyleft" maxlength="1" onkeydown="keyleft_Output.value=event.keyCode;keyleft.value=''"/>
+        </div>
+        <output style="color: red"  id="keyleft_Output">37</output>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="keyright">Key Right:</label>
+        <div class="col-sm-1">
+            <input type="text"  class="form-control" id="keyright" name="keyright" placeholder="keyright" maxlength="1" onkeydown="keyright_Output.value=event.keyCode;keyright.value=''"/>
+        </div>
+        <output style="color: red"  id="keyright_Output">39</output>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="numberBalls">Number of balls:</label>
+        <div class="col-sm-2">
+            <input type="range" value="50" class="form-control" id="numberBalls" name="numberBalls" placeholder="numberBalls" min="50" max="90" oninput="numberBalls_Output.value=numberBalls.value"/>
+        </div>
+        <output style="color: red"  id="numberBalls_Output">50</output>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="5PointBalls">5 point balls:</label>
+        <div class="col-sm-1">
+            <input type="color" value="#FF0000"  class="form-control" id="5PointBalls" name="5PointBalls" placeholder="5PointBalls"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="15PointBalls">15 point balls:</label>
+        <div class="col-sm-1">
+            <input type="color" value="#0000FF"  class="form-control" id="15PointBalls" name="15PointBalls" placeholder="15PointBalls"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="25PointBalls">25 point balls:</label>
+        <div class="col-sm-1">
+            <input type="color" value="#00FF00" class="form-control" id="25PointBalls" name="25PointBalls" placeholder="25PointBalls"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="gameTime">Game time:</label>
+        <div class="col-sm-2">
+            <input type="range" value="60"  class="form-control" id="gameTime" name="gameTime" placeholder="gameTime" min="60" max="300" oninput="gameTime_Output.value=gameTime.value"/>
+        </div>
+        <output style="color: red"  id="gameTime_Output">60</output>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="numberMonters">Number of monsters:</label>
+        <div class="col-sm-2">
+            <input type="range" value="2"  class="form-control" id="numberMonters" name="numberMonters" placeholder="numberMonters" min="1" max="4" oninput="numberMonters_Output.value=numberMonters.value"/>
+        </div>
+        <output style="color: red"  id="numberMonters_Output">2</output>
+    </div>
+    <div class="col-sm-5 col-sm-offset-4">
+        <button type="button" class="btn btn-primary" name="randomSetting"  id="randomSettings" onclick="randomSett()">Random settings</button>
+        <button type="submit" class="btn btn-primary" name="submitSettings"  id="submitSettings">Start game</button>
+    </div>
+</form>
+</div>
+<script>
+function randomSett() {
+    var rnd = Math.floor(Math.random() * 41);
+    var randomBalls =rnd+50;
+    $("#numberBalls").val(randomBalls);
+    $("#numberBalls_Output").val(randomBalls);
+    var rndColor5=getRandomColor()
+    $("#5PointBalls").val(rndColor5);
+    var rndColor15=getRandomColor()
+    $("#15PointBalls").val(rndColor15);
+    var rndColor25=getRandomColor()
+    $("#25PointBalls").val(rndColor25);
+    rnd = Math.floor(Math.random() * 241);
+    var rndGameTime =rnd+60;
+    $("#gameTime").val(rndGameTime);
+    $("#gameTime_Output").val(rndGameTime);
+    rnd = Math.floor(Math.random() *4);
+    var rndMonsters =rnd+1;
+    $("#numberMonters").val(rndMonsters);
+    $("#numberMonters_Output").val(rndMonsters);
+
+
+}
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+</script>
 
 <script type="text/javascript" src="./menu.js"></script>
 </body>
