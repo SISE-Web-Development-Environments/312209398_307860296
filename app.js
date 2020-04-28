@@ -8,14 +8,18 @@ var time_elapsed;
 var interval;
 var lastDirection;
 var monsterImage;
-var numOfMonsters=2;
 var monstersPosition = new Array();
+var keyUp=38;
+var keyDown=40;
+var keyLeft=37;
+var keyRight=39;
+var gameTime=60;
+var numOfBalls=50;
+var point5Balls="#FF0000";
+var point15Balls="#0000FF";
+var point25Balls="#00FF00";
+var numOfMonsters=1;
 
-
-/*$(document).ready(function() {
-	context = canvas.getContext("2d");
-	Start();
-});*/
 function beginGame() {
 	context = canvas.getContext("2d");
 	Start();

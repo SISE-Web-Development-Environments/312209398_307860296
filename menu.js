@@ -1,15 +1,12 @@
 var sessionStorage
 var curDiv=document.getElementById('welcomeDiv');
 var currUser;
-var keySet=null;
-var colour;
-var userMonstersNum;
-var userMaxTime;
+
 
 function show(param_div_id) {
     curDiv.style.display = "none";
     curDiv=document.getElementById(param_div_id);
-    document.getElementById(param_div_id).style.display = "block";
+    curDiv.style.display = "block";
 }
 
 $( ".register" ).click(function() {
@@ -55,8 +52,13 @@ function checkIfUserExist()
     if (user!=null && user==pass){
         alert("Login successfully");
         currUser=user;
+        return true;
     }
-    else alert("user don't exist");
+    else
+    {
+        alert("user don't exist");
+        return false;
+    }
 }
 function addNewUser() {
     var username = $("#username"). val();
@@ -70,45 +72,65 @@ function startGame() {
 }
 
 $('#loginForm').submit(function () {
-    checkIfUserExist()
-    if(currUser)
-        startGame();
+
+    if( checkIfUserExist()) {
+        show("settingsDiv");
+    }
     return false;
 });
 
-$('#submitSettimgs').click(function () {
 
+function randomSett() {
+    $("#keyup").val('');
+    $("#keyup_Output").val(38);
+    $("#keydown").val('');
+    $("#keydown_Output").val(40);
+    $("#keyleft").val('');
+    $("#keyleft_Output").val(37);
+    $("#keyright").val('');
+    $("#keyright_Output").val(39);
+    var rnd = Math.floor(Math.random() * 41);
+    var randomBalls =rnd+50;
+    $("#numberBalls").val(randomBalls);
+    $("#numberBalls_Output").val(randomBalls);
+    var rndColor5=getRandomColor()
+    $("#5PointBalls").val(rndColor5);
+    var rndColor15=getRandomColor()
+    $("#15PointBalls").val(rndColor15);
+    var rndColor25=getRandomColor()
+    $("#25PointBalls").val(rndColor25);
+    rnd = Math.floor(Math.random() * 241);
+    var rndGameTime =rnd+60;
+    $("#gameTime").val(rndGameTime);
+    $("#gameTime_Output").val(rndGameTime);
+    rnd = Math.floor(Math.random() *4);
+    var rndMonsters =rnd+1;
+    $("#numberMonters").val(rndMonsters);
+    $("#numberMonters_Output").val(rndMonsters);
+
+
+}
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+$('#gameSettingform').submit(function () {
+    keyUp=$("#keyup_Output").val();
+    keyDown=$("#keydown_Output").val();
+    keyLeft=$("#keyleft_Output").val();
+    keyRight=$("#keyright_Output").val();
+    numOfMonsters=$("#numberMonters_Output").val();
+    point5Balls=$("#5PointBalls").val();
+    point15Balls=$("#15PointBalls").val();
+    point25Balls=$("#25PointBalls").val();
+    gameTime=$("#gameTime_Output").val();
+    numOfBalls=$("#numberBalls_Output").val();
+
+    show('gameDiv');
+    startGame();
+    return false;
 });
-
-function keySetSelect(sel) {
-    keySet=sel.options[sel.selectedIndex].value;
-}
-function pacColourSelect(sel) {
-    colour=sel.options[sel.selectedIndex].value;
-}
-function maxTimeSelect(inp){
-    userMaxTime=inp.value;
-}
-function monsterAmountSelect(inp){
-    userMonstersNum=inp.value;
-}
-
-$("#randomSettings").click(function() {
-    var random=Math.floor(Math.random() * 3);
-    if(random==0){
-        keySet='letters';
-        $("#letters").selected(true);
-    }
-    if(random==1){
-        keySet='arrows';
-        $("#arrows").selected(true);
-    }
-    if(random==2){
-        keySet='nums';
-        $("#nums").selected(true);
-    }
-    console.log(keySet);
-});
-
-
-
