@@ -6,10 +6,9 @@
 	<script src="./jquery-3.4.1.slim.min.js"></script>
 	<script type="text/javascript" src="./app.js"></script>
 	<script src="./jquery.validate.js"></script>
+	<script src="./formValidation.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
 <div id='cssmenu'>
@@ -24,9 +23,8 @@
 	<div style="border-style: solid; margin-left: 250px;margin-right: 250px">
 		<img src="pacTry.png" height="=100px" width="1200" style="padding-left: 250px">
 		<img src="logoGif.gif" height="=200px" width="200px">
-		<p>
-			if you want to start the game please <a class="register">register</a> or <a class="login">log in</a> first
-		</p>
+		<button type="button" id="loginBtn" class="btn btn-success">Log in</button>
+		<button type="button" id="signupBtn"class="btn btn-warning">Sign up</button>
 	</div>
 </div>
 
@@ -122,7 +120,7 @@
 			<div class="form-group">
 				<label class="col-sm-4 control-label" for="datepicker" >Birth Date</label>
 				<div class="col-sm-5">
-					<input type="text" class="form-control" id="datepicker" name="date" placeholder="date" />
+					<input type="date" class="form-control" id="datepicker" name="datepicker" placeholder="datepicker"  />
 				</div>
 			</div>
 
@@ -202,105 +200,6 @@
 	</div>
 
 </div>
-
-
 <script type="text/javascript" src="./menu.js"></script>
-<script>
-	$.validator.setDefaults( {
-		submitHandler: function () {
-			addNewUser();
-			alert( "New user added successfully!" );
-		}
-	} );
-	$( document ).ready( function () {
-		$( "#signupForm" ).validate( {
-			rules: {
-				username: {
-					required: true,
-					minlength: 2
-				},
-				date: {
-					required: true,
-					validdate:true
-				},
-				password: {
-					required: true,
-					minlength: 6,
-					pwcheck:true
-				},
-				confirm_password: {
-					required: true,
-					minlength: 6,
-					equalTo: "#password"
-				},
-				email: {
-					required: true,
-					email: true
-				},
-
-			},
-			messages: {
-				username: {
-					required: "Please enter a username",
-					minlength: "Your username must consist of at least 2 characters"
-				},
-				date: {
-					required: "Please provide a birth date",
-					validdate:"Please enter valid a date format dd/mm/yyyy"
-				},
-				password: {
-					required: "Please provide a password",
-					minlength: "Your password must be at least 6 characters long",
-					pwcheck: "Your password must include characters and digits"
-				},
-				confirm_password: {
-					required: "Please provide a password",
-					minlength: "Your password must be at least 6 characters long",
-					equalTo: "Please enter the same password as above"
-
-				},
-				email: "Please enter a valid email address",
-			},
-			errorElement: "em",
-			errorPlacement: function ( error, element ) {
-				// Add the `help-block` class to the error element
-				error.addClass( "help-block" );
-
-				if ( element.prop( "type" ) === "checkbox" ) {
-					error.insertAfter( element.parent( "label" ) );
-				} else {
-					error.insertAfter( element );
-				}
-			},
-			highlight: function ( element, errorClass, validClass ) {
-				$( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
-			},
-			unhighlight: function (element, errorClass, validClass) {
-				$( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
-			}
-		} );
-	} );
-</script>
-<script>
-	/*	set datepicker today date*/
-	$(function(){
-		$.datepicker.setDefaults(
-				$.extend( $.datepicker.regional[ '' ] )
-		);
-		$( '#datepicker' ).datepicker({maxDate:0});
-	});
-
-	/*check date formate*/
-	jQuery.validator.addMethod("validdate", function(value, element) {
-		return this.optional(element) ||  /^\d{1,2}\/\d{1,2}\/\d{4}$/.test(value);
-	}, "Please enter valid date.");
-
-	/*check pass contain char and digits*/
-	$.validator.addMethod("pwcheck", function(value) {
-		return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
-				&& /[a-z]/.test(value) // has a lowercase letter
-				&& /\d/.test(value) // has a digit
-	});
-</script>
 </body>
 </html>

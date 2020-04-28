@@ -71,13 +71,17 @@ function startGame() {
     beginGame();
 }
 
-$('#loginForm').submit(function () {
+/*$('#loginForm').submit(function () {
 
     if( checkIfUserExist()) {
         show("settingsDiv");
     }
     return false;
-});
+});*/
+/*$('#signupForm').submit(function () {
+    addNewUser();
+    alert( "New user added successfully!" );
+});*/
 
 
 function randomSett() {
@@ -134,3 +138,15 @@ $('#gameSettingform').submit(function () {
     startGame();
     return false;
 });
+/*
+$('#signupForm').submit(function () {
+    show('loginDiv');
+    return false;
+});
+*/
+$('#loginBtn').click(function () {
+    show('loginDiv');
+})
+$('#signupBtn').click(function () {
+    show('registerDiv');
+})
