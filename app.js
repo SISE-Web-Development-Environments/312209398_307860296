@@ -37,8 +37,9 @@ function drawMonster(center) {
 	context.drawImage(monsterImage, center.x, center.y,60,30);
 }
 function drawHearts() {
+	heartContext.clearRect(0,0,400,80);
 	for (let i = 0; i < pacmanLives; i++) {
-		heartContext.drawImage()
+		heartContext.drawImage(heartImage,i*80,20,60,60)
 	}
 }
 
@@ -181,7 +182,6 @@ function Start() {
 function findRandomEmptyCell(board) {
 	var i = Math.floor(Math.random() * 9 + 1);
 	var j = Math.floor(Math.random() * 9 + 1);
-	console.log(board[i][j]);
 	while (board[i][j] != 0) {
 		i = Math.floor(Math.random() * 9 + 1);
 		j = Math.floor(Math.random() * 9 + 1);
@@ -254,9 +254,7 @@ function Draw() {
 	for (let k = 0; k < numOfMonsters; k++) {
 		context.drawImage(monsterImage, monstersPosition[k].i*60+30, monstersPosition[k].j*60+30,50,30);
 	}
-	for (let k = 0; k <pacmanLives ; k++) {
-		heartContext.drawImage(heartImage,i*80 +40,50,80,80);
-	}
+	drawHearts();
 }
 
 function UpdatePosition() {

@@ -23,7 +23,7 @@
 <div class="content" id="welcomeDiv" >
 	<div style="border-style: solid; margin-left: 250px;margin-right: 250px">
 		<img src="pacTry.png" height="=100px" width="1200" style="padding-left: 250px">
-		<img src="logoGif.gif" height="=200px" width="200px">
+
 		<button type="button" id="loginBtn" class="btn btn-success">Log in</button>
 		<button type="button" id="signupBtn"class="btn btn-warning">Sign up</button>
 	</div>
@@ -51,7 +51,7 @@
 		<div class="col-sm-1">
 			<input type="text"  class="form-control" id="keyleft" name="keyleft" placeholder="keyleft" maxlength="1" onkeydown="keyleft_Output.value=event.keyCode;keyleft.value=''"/>
 		</div>
-		<output style="color: red"  id="keyleft_Output">37</output>
+		<output style="color: #ff0000" id="keyleft_Output">37</output>
 	</div>
 	<div class="form-group">
 		<label class="col-sm-4 control-label" for="keyright">Key Right:</label>
@@ -105,8 +105,15 @@
 	</div>
 	</form>
 </div>
+<div id="myModal" class="modal">
+	<div class="modal-content">
+		<span class="close">&times;</span>
+		<p>המשחק של עומר וצליל</p>
+		<p>נעשה שימוש ב-template מהקישור הבא:</p>
+		<p>https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal</p>
+	</div>
 
-
+</div>
 <div class="content" id="registerDiv" style='display:none'>
 	<!--sign up-->
 	<div class="classSignUp">
@@ -176,33 +183,28 @@
 			</div>
 		</form>
 </div>
-<div id="aboutDiv" style='display:none'>
-
-</div>
 <div class="content" id="gameDiv" style=" display:none ">
 	<div class="container" style="text-align: center">
-		<div class="row">
-			<div class="col-sm-1" style="text-align: left;">
-				<div id="score">
-					<label for="lblScore">Score:</label>
-					<output id="lblScore" type="text" />
+		<div class="row" style="height: 80px">
+			<div class="col-sm-2" style="text-align: left;">
+				<div id="score" style="padding-left: 100px; height: 40px ;"  >
+					<label for="lblScore" style="float:left; margin-right: 3px;">Score:</label>
+					<output id="lblScore" type="text"  style="padding-bottom: 2px"/>
 				</div>
-				<div id="time">
-					<label for="lblTime">Time:</label>
-					<output id="lblTime" type="text" />
-				</div>
-				<div id="heart">
-					<label for="lblheart">Heart:</label>
-					<output id="lblheart" type="text" />
+				<div id="time" style="padding-left: 100px; height: 40px">
+					<label for="lblTime" style="float:left;margin-right: 3px ">Time:</label>
+					<output id="lblTime" type="text" style="padding-bottom: 2px"/>
 				</div>
 			</div>
-			<div heartCanvas class="col-sm-9" style="text-align: center">
-				<canvas  id="heartCanvas" height="100" width="200"></canvas>
-				<div  id="game" class="col-sm-9" style="text-align: center">
-					<canvas style="border-style: groove" id="canvas" height="600" width="600" ></canvas>
-					<button onclick="beginGame()" class="btn btn-default btn-lg active">New Game</button>
+			<div  class="col-sm-10" >
+				<div align="left">
+					<canvas  id="heartCanvas" height="80" width="400" style="padding-left: 50px"></canvas>
 				</div>
-
+			</div>
+		</div>
+		<div class="row">
+			<div  id="game" class="col-sm-10" style="text-align: center">
+				<canvas style="border-style: groove" id="canvas" height="600" width="600" ></canvas>
 			</div>
 			<div class="col-sm-2" style="text-align: center;">
 				<label >Game Settings:</label>
@@ -248,22 +250,18 @@
 					<label>25 Point Color:</label>
 					<canvas id="25pointColor" width="20" height="10"></canvas>
 				</div>
+				<div>
+					<button onclick="beginGame()" class="btn btn-default btn-lg active">New Game</button>
+				</div>
 
 			</div>
 		</div>
 	</div>
-<div id="myModal" class="modal">
-	<div class="modal-content">
-		<span class="close">&times;</span>
-		<p>המשחק של עומר וצליל</p>
-		<p>נעשה שימוש ב-template מהקישור הבא:</p>
-		<p>https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal</p>
-	</div>
-
 </div>
 <script type="text/javascript" src="./menu.js"></script>
 <audio controls style='display:none'>
 	<source src="moshik.mp3" type="audio/mpeg" >
 </audio>
+</div>
 </body>
 </html>
