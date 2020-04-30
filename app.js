@@ -251,7 +251,7 @@ function Draw() {
 	for (let k = 0; k < numOfMonsters; k++) {
 		context.drawImage(monsterImage, monstersPosition[k].i*60+30, monstersPosition[k].j*60+30,50,30);
 	}
-	for (let k = 0; i <pacmanLives ; i++) {
+	for (let k = 0; k <pacmanLives ; k++) {
 		heartContext.drawImage(heartImage,i*80 +40,50,80,80);
 	}
 }
