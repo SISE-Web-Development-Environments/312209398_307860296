@@ -17,7 +17,7 @@ var keyLeft=37;
 var keyRight=39;
 var gameTime=60;
 var numOfBalls=50;
-var point5Balls="#FF0000";
+var point5Balls="#ffe0bd";
 var point15Balls="#0000FF";
 var point25Balls="#00FF00";
 var numOfMonsters=1;
@@ -102,6 +102,7 @@ function Start() {
 	heartImage=new Image();
 	heartImage.src="heart.jpg";
 	//monsterImage.style.maxWidth = "10px";
+	monsterImage.style.background= "transparent";
 	pac_color = "yellow";
 	lastDirection="right";
 	monsterTurn=false;
@@ -238,8 +239,10 @@ function Draw() {
 			else if (board[i][j] == 1) { // food circle drawing
 				context.beginPath();
 				context.arc(center.x, center.y, 15, 0, 2 * Math.PI);
-				context.fillStyle = "black"; //color
+				context.fillStyle = point5Balls; //color
 				context.fill(); //food
+				context.strokeStyle="black";
+				context.stroke();
 			} else if (board[i][j] == 4) { //wall drawing
 				context.beginPath();
 				context.rect(center.x - 30, center.y - 30, 60, 60);

@@ -9,6 +9,7 @@
 	<script src="./formValidation.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="style.css">
+
 </head>
 <body>
 <div id='cssmenu'>
@@ -69,7 +70,7 @@
 	<div class="form-group">
 		<label class="col-sm-4 control-label" for="5PointBalls">5 point balls:</label>
 		<div class="col-sm-1">
-			<input type="color" value="#FF0000"  class="form-control" id="5PointBalls" name="5PointBalls" placeholder="5PointBalls"/>
+			<input type="color" value="#ffe0bd"  class="form-control" id="5PointBalls" name="5PointBalls" placeholder="5PointBalls"/>
 		</div>
 	</div>
 	<div class="form-group">
@@ -178,27 +179,79 @@
 <div id="aboutDiv" style='display:none'>
 
 </div>
-<div class="content" id="gameDiv" style="position:absolute; margin-left: 300px;margin-right: 100px; width:100%; height:100%; display:none ">
-	<div style="width: 100%; overflow: hidden;">
-		<div style="width: 200px; float: left;">
-			<div id="score">
-				<label for="lblScore">SCORE:</label>
-				<input id="lblScore" type="text" />
+<div class="content" id="gameDiv" style=" display:none ">
+	<div class="container" style="text-align: center">
+		<div class="row">
+			<div class="col-sm-1" style="text-align: left;">
+				<div id="score">
+					<label for="lblScore">Score:</label>
+					<output id="lblScore" type="text" />
+				</div>
+				<div id="time">
+					<label for="lblTime">Time:</label>
+					<output id="lblTime" type="text" />
+				</div>
+				<div id="heart">
+					<label for="lblheart">Heart:</label>
+					<output id="lblheart" type="text" />
+				</div>
 			</div>
-			<div id="time">
-				<label for="lblTime">TIME:</label>
-				<input id="lblTime" type="text" />
+			<div heartCanvas class="col-sm-9" style="text-align: center">
+				<canvas  id="heartCanvas" height="100" width="200"></canvas>
+				<div  id="game" class="col-sm-9" style="text-align: center">
+					<canvas style="border-style: groove" id="canvas" height="600" width="600" ></canvas>
+					<button onclick="beginGame()" class="btn btn-default btn-lg active">New Game</button>
+				</div>
+
+			</div>
+			<div class="col-sm-2" style="text-align: center;">
+				<label >Game Settings:</label>
+				<br>
+				<div id="lblgameTime">
+					<label >Game Time:</label>
+					<output id="lblgameTime_Output" type="text"  />
+				</div>
+				<div  id="lblnumOfBalls">
+					<label>Number of Balls:</label>
+					<output id="lblnumOfBalls_Output" type="text" />
+				</div>
+				<div  id="lblnumOfMons">
+					<label>Number of Monsters:</label>
+					<output id="lblnumOfMons_Output" type="text" />
+				</div>
+				<div  id="lblUpkey">
+					<label>Up Key:</label>
+					<output id="lblUpkey_Output" type="text" />
+				</div>
+				<div  id="lblDowntkey">
+					<label>Down Key:</label>
+					<output id="lblDownkey_Output" type="text" />
+				</div>
+				<div  id="lblLeftkey">
+					<label>Left Key:</label>
+					<output id="lblLeftkey_Output" type="text" />
+				</div>
+				<div  id="lblRightkey">
+					<label>Right Key:</label>
+					<output id="lblRightkey_Output" type="text" />
+				</div>
+				<div  id="lbl5PointColor">
+					<label>5 Point Color:</label>
+					<canvas id="5pointColor" width="20" height="10"></canvas>
+				</div>
+				<div  id="lbl15PointColor">
+					<label>15 Point Color:</label>
+					<canvas id="15pointColor" width="20" height="10"></canvas>
+
+				</div>
+				<div  id="lbl25PointColor">
+					<label>25 Point Color:</label>
+					<canvas id="25pointColor" width="20" height="10"></canvas>
+				</div>
+
 			</div>
 		</div>
-		<div style="margin-left: 0px;">
-			<canvas style="border-style: solid" id="heartCanvas" height="100" width="400"></canvas>
-		</div>
 	</div>
-	<div id="game">
-		<canvas style="border-style: solid" id="canvas" height="600" width="600"></canvas>
-	</div>
-	<button onclick="beginGame()">Start a new game</button>
-</div>
 <div id="myModal" class="modal">
 	<div class="modal-content">
 		<span class="close">&times;</span>
@@ -208,9 +261,9 @@
 	</div>
 
 </div>
+<script type="text/javascript" src="./menu.js"></script>
 <audio controls style='display:none'>
 	<source src="moshik.mp3" type="audio/mpeg" >
 </audio>
-<script type="text/javascript" src="./menu.js"></script>
 </body>
 </html>

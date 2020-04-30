@@ -4,125 +4,89 @@
     <meta charset="UTF-8">
     <title>test</title>
     <script src="./jquery-3.4.1.slim.min.js"></script>
+    <script type="text/javascript" src="./app.js"></script>
     <script src="./jquery.validate.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="./formValidation.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script type="text/javascript" src="./menu.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
-<div class="classSignUp">
-    <label style="align-content: center">Sign Up</label>
-    <form id="signupForm" method="post" class="form-horizontal" action="">
-        <div class="form-group">
-            <label class="col-sm-4 control-label" for="username">Username</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" id="username" name="username" placeholder="Username" />
+    <div class="container" style="text-align: center">
+        <div class="row">
+            <div class="col-sm-1" style="text-align: left;">
+                <div id="score">
+                    <label for="lblScore">Score:</label>
+                    <output id="lblScore" type="text" />
+                </div>
+                <div id="time">
+                    <label for="lblTime">Time:</label>
+                    <output id="lblTime" type="text" />
+                </div>
+                <div id="heart">
+                    <label for="lblheart">Heart:</label>
+                    <output id="lblheart" type="text" />
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-4 control-label" for="date" >Birth Date</label>
-            <div class="col-sm-4">
-                <input type="date" class="form-control" id="date" name="date" placeholder="date" />
-            </div>
-        </div>
+        <div heartCanvas class="col-sm-9" style="text-align: center">
+            <canvas  id="heartCanvas" height="100" width="200"></canvas>
+    <div  id="game" class="col-sm-9" style="text-align: center">
+        <canvas style="border-style: groove" id="canvas" height="600" width="600" ></canvas>
+        <button onclick="beginGame()" class="btn btn-default btn-lg active">New Game</button>
+    </div>
 
-        <div class="form-group">
-            <label class="col-sm-4 control-label" for="email">Email</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" id="email" name="email" placeholder="Email" />
-            </div>
-        </div>
+    </div>
+            <div class="col-sm-2" style="text-align: center;">
+                <label >Game Settings:</label>
+                <br>
+                <br>
+                <br>
+                <div id="lblgameTime">
+                    <label >Game Time:</label>
+                    <output id="lblgameTime_Output" type="text"  />
+                </div>
+                <div  id="lblnumOfBalls">
+                    <label>Number of Balls:</label>
+                    <output id="lblnumOfBalls_Output" type="text" />
+                </div>
+                <div  id="lblnumOfMons">
+                    <label>Number of Monsters:</label>
+                    <output id="lblnumOfMons_Output" type="text" />
+                </div>
+                <div  id="lblUpkey">
+                    <label>Left Key:</label>
+                    <output id="lblUpkey_Output" type="text" />
+                </div>
+                <div  id="lblDowntkey">
+                    <label>Left Key:</label>
+                    <output id="lblDownkey_Output" type="text" />
+                </div>
+                <div  id="lblLeftkey">
+                    <label>Left Key:</label>
+                    <output id="lblLeftkey_Output" type="text" />
+                </div>
+                <div  id="lblRightkey">
+                    <label>Left Key:</label>
+                    <output id="lblRightkey_Output" type="text" />
+                </div>
+                <div  id="lbl5PointColor">
+                    <label>5 Point Color:</label>
+                    <canvas id="5pointColor" width="20" height="10"></canvas>
+                </div>
+                <div  id="lbl15PointColor">
+                    <label>15 Point Color:</label>
+                    <canvas id="15pointColor" width="20" height="10"></canvas>
+                </div>
+                <div  id="lbl25PointColor">
+                    <label>25 Point Color:</label>
+                    <canvas id="25pointColor" width="20" height="10"></canvas>
+                </div>
 
-        <div class="form-group">
-            <label class="col-sm-4 control-label" for="password">Password</label>
-            <div class="col-sm-4">
-                <input type="password" class="form-control" id="password" name="password" placeholder="Password" />
             </div>
         </div>
-
-        <div class="form-group">
-            <label class="col-sm-4 control-label" for="confirm_password">Confirm password</label>
-            <div class="col-sm-4">
-                <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm password" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-9 col-sm-offset-4">
-                <button type="submit" class="btn btn-primary" name="signup" value="Sign up" >Sign up</button>
-            </div>
-        </div>
-    </form>
 </div>
-<script>
-    $( document ).ready( function () {
-        $( "#signupForm" ).validate( {
-            rules: {
-                username: {
-                    required: true,
-                    minlength: 2
-                },
-                date: {
-                    required: true,
-                    validdate:true
-                },
-                password: {
-                    required: true,
-                    minlength: 6,
-                    pwcheck:true
-                },
-                confirm_password: {
-                    required: true,
-                    minlength: 6,
-                    equalTo: "#password"
-                },
-                email: {
-                    required: true,
-                    email: true
-                },
+<audio controls style='display:none'>
+    <source src="moshik.mp3" type="audio/mpeg" >
+</audio>
 
-            },
-            messages: {
-                username: {
-                    required: "Please enter a username",
-                    minlength: "Your username must consist of at least 2 characters"
-                },
-                date: {
-                    required: "Please provide a birth date",
-                    validdate:"Please enter valid a date format dd/mm/yyyy"
-                },
-                password: {
-                    required: "Please provide a password",
-                    minlength: "Your password must be at least 6 characters long",
-                    pwcheck: "Your password must include characters and digits"
-                },
-                confirm_password: {
-                    required: "Please provide a password",
-                    minlength: "Your password must be at least 6 characters long",
-                    equalTo: "Please enter the same password as above"
-
-                },
-                email: "Please enter a valid email address",
-            },
-            errorElement: "em",
-            errorPlacement: function ( error, element ) {
-                // Add the `help-block` class to the error element
-                error.addClass( "help-block" );
-
-                if ( element.prop( "type" ) === "checkbox" ) {
-                    error.insertAfter( element.parent( "label" ) );
-                } else {
-                    error.insertAfter( element );
-                }
-            },
-            highlight: function ( element, errorClass, validClass ) {
-                $( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
-            },
-            unhighlight: function (element, errorClass, validClass) {
-                $( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
-            }
-        } );
-    } );
-</script>
 </body>
 </html>

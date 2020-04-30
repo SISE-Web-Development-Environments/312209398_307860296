@@ -133,20 +133,50 @@ $('#gameSettingform').submit(function () {
     point25Balls=$("#25PointBalls").val();
     gameTime=$("#gameTime_Output").val();
     numOfBalls=$("#numberBalls_Output").val();
-
     show('gameDiv');
+    $("#lblUpkey_Output").val(keyUp);
+    $("#lblDownkey_Output").val(keyDown);
+    $("#lblLeftkey_Output").val(keyLeft);
+    $("#lblRightkey_Output").val(keyRight);
+    $("#lblnumOfMons_Output").val(numOfMonsters);
+    $("#lblgameTime_Output").val(gameTime);
+    $("#lblnumOfBalls_Output").val(numOfBalls);
+    var color5=document.getElementById("5pointColor");
+    var color15=document.getElementById("15pointColor");
+    var color25=document.getElementById("25pointColor");
+    var context5=color5.getContext("2d");
+    var context15=color15.getContext("2d");
+    var context25=color25.getContext("2d");
+    context5.beginPath();
+    context5.rect(0,0,20,10);
+    context5.fillStyle=point5Balls;
+    context5.fill();
+    context5.strokeStyle="black";
+    context5.stroke();
+    context15.beginPath();
+    context15.rect(0,0,20,10);
+    context15.fillStyle=point15Balls;
+    context15.fill();
+    context15.strokeStyle="black";
+    context15.stroke();
+    context25.beginPath();
+    context25.rect(0,0,20,10);
+    context25.fillStyle=point25Balls;
+    context25.fill();
+    context25.strokeStyle="black";
+    context25.stroke();
     startGame();
     return false;
 });
-/*
-$('#signupForm').submit(function () {
-    show('loginDiv');
-    return false;
-});
-*/
+
 $('#loginBtn').click(function () {
     show('loginDiv');
 })
 $('#signupBtn').click(function () {
     show('registerDiv');
 })
+/*
+$('.welcomeDiv').click(function () {
+    show('welcomeDiv');
+})
+*/
