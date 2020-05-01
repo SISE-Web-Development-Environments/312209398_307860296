@@ -51,6 +51,7 @@ function checkIfUserExist()
     var user = sessionStorage.getItem(username);
     if (user!=null && user==pass){
         alert("Login successfully");
+        $("#welcome a")[0].innerHTML="welcome " + username;
         currUser=user;
         return true;
     }
