@@ -177,6 +177,7 @@ $('#signupBtn').click(function () {
     show('registerDiv');
 })
 $('#btnSetSettings').click(function () {
+    finishGame();
     show("settingsDiv");
 })
 /*

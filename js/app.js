@@ -16,6 +16,7 @@ var gameOverImg;
 var winnerImg;
 var heartImage;
 var bonusBugImage;
+var candyHeartImage
 var monstersPosition = new Array();
 var keyUp=38;
 var keyDown=40;
@@ -30,9 +31,20 @@ var numOfMonsters=1;
 var monsterTurn;
 var pacmanLives;
 var bonusBugPosition=new Object();
+var heartCandyPosition=new Object();
 var numOfBallsOnBoard;
 var totalFood;
 var emptyCell;
+
+function beginNewGame() {
+	finishGame();
+	beginGame();
+}
+
+function finishGame(){
+	setTimeout(function (){window.clearInterval(interval);}, 100);
+	$("audio")[0].pause();
+}
 
 function beginGame() {
 	pacmanLives=5;
@@ -52,6 +64,11 @@ function drawBonusBug() {
 	if(bonusBugPosition.i<0)
 		return;
 	context.drawImage(bonusBugImage,bonusBugPosition.i*60,bonusBugPosition.j*60,60,60);
+}
+function drawCandyHeart() {
+	if(heartCandyPosition.i<0)
+		return;
+	context.drawImage(candyHeartImage,heartCandyPosition.i*60,heartCandyPosition.j*60,60,60);
 }
 
 function drawRightPacman(center) {
@@ -116,6 +133,7 @@ function init() {
 	winnerImg=new Image();
 	heartImage=new Image();
 	bonusBugImage=new Image();
+	candyHeartImage=new Image();
 	gameOverImg.src="image/gameover2.png";
 	winnerImg.src="image/winner.jpg";
 	monster1Image.src="image/blinky.png";
@@ -124,6 +142,7 @@ function init() {
 	monster4Image.src="image/clyde.png";
 	heartImage.src="image/heart.jpg";
 	bonusBugImage.src="image/bee.png";
+	candyHeartImage.src="image/candy.png";
 	pac_color = "yellow";
 	lastDirection="right";
 	monsterTurn=false;
@@ -167,6 +186,9 @@ function Start() {
 	emptyCell=findRandomEmptySideCell(board);
 	bonusBugPosition.i=emptyCell[0];
 	bonusBugPosition.j=emptyCell[1];
+	emptyCell=findRandomEmptySideCell(board);
+	heartCandyPosition.i=emptyCell[0];
+	heartCandyPosition.j=emptyCell[1];
 	keysDown = {};
 	addEventListener(
 		"keydown",
@@ -186,13 +208,27 @@ function Start() {
 }
 
 function findRandomEmptyCell(board) {
-	var i = Math.floor(Math.random() * 9 + 1);
-	var j = Math.floor(Math.random() * 9 + 1);
+	var i = Math.floor(Math.random() * 9 +0.7);
+	var j = Math.floor(Math.random() * 9+0.7 );
+	var counter=0;
 	while (board[i][j] != 0) {
-		i = Math.floor(Math.random() * 9 + 1);
-		j = Math.floor(Math.random() * 9 + 1);
+		i = Math.floor(Math.random() * 9 +0.7);
+		j = Math.floor(Math.random() * 9 +0.7);
+		if(counter==50){
+			return findManualy(board);
+		}
+		counter++;
 	}
 	return [i, j];
+}
+
+function findManualy(board) {
+	for (let i = 0; i <10 ; i++) {
+		for (let j = 0; j <10 ; j++) {
+			if(board[i][j]==0)
+				return [i,j];
+		}
+	}
 }
 
 function findRandomEmptySideCell(board) {
@@ -309,6 +345,8 @@ function Draw() {
 	}
 	if(bonusBugPosition.i>0)
 		drawBonusBug();
+	if(bonusBugPosition.i>0)
+		drawCandyHeart();
 	if(lastDirection==="right")
 		drawRightPacman(shape);
 	else if (lastDirection==="left")
@@ -364,6 +402,7 @@ function UpdatePosition() {
 		score+=25;
 	}
 	checkBugBonus();
+	checkheartCandy();
 	if(monsterTurn){
 		monsterTurn=false;
 		for (var i=0;i<numOfMonsters;i++){
@@ -374,29 +413,28 @@ function UpdatePosition() {
 	}
 	if(bonusBugPosition.i>=0)
 		makeRandMove(bonusBugPosition);
+	if(heartCandyPosition.i>=0)
+		makeRandMove(heartCandyPosition);
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
-	if (score >= 20 && time_elapsed <= 10) {
+	if (score >= 60 && time_elapsed <= 10) {
 		pac_color = "green";
 	}
-	if (numOfBallsOnBoard == 0 ||time_elapsed>=gameTime ) {
-		if(time_elapsed>=gameTime){
-			window.clearInterval(interval);
-			$("audio")[0].pause();
-			drawGameOver();
-			setTimeout(function (){window.alert("You are better than "+score+" points");}, 250)
-		}
-		else if(numOfBallsOnBoard == 0) {
-			window.clearInterval(interval);
-			$("audio")[0].pause();
-			drawWinner();
-			setTimeout(function () {window.alert("Winner!!!");}, 250);
-		}
+	if(time_elapsed>=gameTime){
+		drawGameOver();
+		setTimeout(function (){window.alert("You are better than "+score+" points");}, 250);
+		finishGame();
+	}
+
+	if(score >= 100) {
+		drawWinner();
+		setTimeout(function () {window.alert("Winner!!!");}, 250);
+		finishGame();
 	}
 	if(checkLoss()){
 		pacmanLives--;
 		score-=10;
-		var audio = new Audio('buzzer.mp3');
+		var audio = new Audio('sound/buzzer.mp3');
 		audio.play();
 		if(pacmanLives==0){
 			window.clearInterval(interval);
@@ -441,6 +479,13 @@ function checkBugBonus() {
 		score+=50;
 		bonusBugPosition.i=-10;
 		bonusBugPosition.j=-10;
+	}
+}
+function checkheartCandy() {
+	if(heartCandyPosition.i==shape.i&&heartCandyPosition.j==shape.j){
+		pacmanLives=5;
+		heartCandyPosition.i=-10;
+		heartCandyPosition.j=-10;
 	}
 }
 function createObstacles() {
