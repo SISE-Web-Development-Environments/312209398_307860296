@@ -176,6 +176,9 @@ $('#loginBtn').click(function () {
 $('#signupBtn').click(function () {
     show('registerDiv');
 })
+$('#btnSetSettings').click(function () {
+    show("settingsDiv");
+})
 /*
 $('.welcomeDiv').click(function () {
     show('welcomeDiv');

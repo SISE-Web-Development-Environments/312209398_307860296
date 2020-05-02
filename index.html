@@ -4,9 +4,9 @@
 	<meta charset="UTF-8">
 	<title>test</title>
 	<script src="./jquery-3.4.1.slim.min.js"></script>
-	<script type="text/javascript" src="./app.js"></script>
-	<script src="./jquery.validate.js"></script>
-	<script src="./formValidation.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+	<script src="js/jquery.validate.js"></script>
+	<script src="js/formValidation.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="style.css">
 
@@ -22,7 +22,7 @@
 </div>
 <div class="content" id="welcomeDiv" >
 	<div style="border-style: solid; margin-left: 250px;margin-right: 250px">
-		<img src="pacTry.png" height="=100px" width="1200" style="padding-left: 250px">
+		<img src="image/pacTry.png" height="=100px" width="1200" style="padding-left: 250px">
 
 		<button type="button" id="loginBtn" class="btn btn-success">Log in</button>
 		<button type="button" id="signupBtn"class="btn btn-warning">Sign up</button>
@@ -252,15 +252,16 @@
 				</div>
 				<div>
 					<button onclick="beginGame()" class="btn btn-default btn-lg active">New Game</button>
+					<button  id="btnSetSettings" class="btn btn-default btn-lg active">Settings</button>
 				</div>
 
 			</div>
 		</div>
 	</div>
 </div>
-<script type="text/javascript" src="./menu.js"></script>
+<script type="text/javascript" src="js/menu.js"></script>
 <audio controls style='display:none'>
-	<source src="moshik.mp3" type="audio/mpeg" >
+	<source src="sound/moshik.mp3" type="audio/mpeg" >
 </audio>
 </div>
 </body>

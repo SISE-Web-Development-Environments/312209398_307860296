@@ -8,7 +8,10 @@ var start_time;
 var time_elapsed;
 var interval;
 var lastDirection;
-var monsterImage;
+var monster1Image;
+var monster2Image;
+var monster3Image;
+var monster4Image;
 var heartImage;
 var bonusBugImage;
 var monstersPosition = new Array();
@@ -25,7 +28,6 @@ var numOfMonsters=1;
 var monsterTurn;
 var pacmanLives;
 var bonusBugPosition=new Object();
-var ateBonusBug;
 
 
 function beginGame() {
@@ -45,41 +47,41 @@ function drawHearts() {
 function drawBonusBug() {
 	if(bonusBugPosition.i<0)
 		return;
-	context.drawImage(bonusBugImage,bonusBugPosition.i*60+30,bonusBugPosition.j*60+30,60,60);
+	context.drawImage(bonusBugImage,bonusBugPosition.i*60,bonusBugPosition.j*60,60,60);
 }
 
 function drawRightPacman(center) {
 	context.beginPath();
-	context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
-	context.lineTo(center.x, center.y);
+	context.arc(center.i* 60 + 30, center.j* 60 + 30, 25, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+	context.lineTo(center.i*60+30, center.j*60+30);
 	context.fillStyle = pac_color; //color
 	context.fill();
 	context.beginPath(); //pacman eye
-	context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+	context.arc(center.i* 60 + 30 + 5, center.j* 60 + 30 - 15, 3, 0, 2 * Math.PI); // circle
 	context.fillStyle = "black"; //color
 	context.fill();
 }
 
 function drawLeftPacman(center) {
 	context.beginPath();
-	context.arc(center.x, center.y, 30, 1.15 * Math.PI, 0.85 * Math.PI); // half circle
-	context.lineTo(center.x, center.y);
+	context.arc(center.i* 60 + 30, center.j* 60 + 30, 25, 1.15 * Math.PI, 0.85 * Math.PI); // half circle
+	context.lineTo(center.i*60+30, center.j*60+30);
 	context.fillStyle = pac_color; //color
 	context.fill();
 	context.beginPath(); //pacman eye
-	context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+	context.arc(center.i* 60 + 30 + 5, center.j* 60 + 30 - 15, 3, 0, 2 * Math.PI); // circle
 	context.fillStyle = "black"; //color
 	context.fill();
 }
 
 function drawUpPacman(center) {
 	context.beginPath();
-	context.arc(center.x, center.y, 30, 1.65 * Math.PI, 1.35 * Math.PI); // half circle
-	context.lineTo(center.x, center.y);
+	context.arc(center.i* 60 + 30, center.j* 60 + 30, 25, 1.65 * Math.PI, 1.35 * Math.PI); // half circle
+	context.lineTo(center.i*60+30, center.j*60+30);
 	context.fillStyle = pac_color; //color
 	context.fill();
 	context.beginPath(); //pacman eye
-	context.arc(center.x - 5, center.y + 15, 5, 0, 2* Math.PI); // circle
+	context.arc(center.i* 60 + 30 - 15, center.j* 60 + 30 +5, 3, 0, 2* Math.PI); // circle
 	context.fillStyle = "black"; //color
 	context.fill();
 
@@ -87,12 +89,12 @@ function drawUpPacman(center) {
 
 function drawDownPacman(center) {
 	context.beginPath();
-	context.arc(center.x, center.y, 30, 0.65 * Math.PI, 0.35 * Math.PI); // half circle
-	context.lineTo(center.x, center.y);
+	context.arc(center.i* 60 + 30, center.j* 60 + 30, 25, 0.65 * Math.PI, 0.35 * Math.PI); // half circle
+	context.lineTo(center.i*60+30, center.j*60+30);
 	context.fillStyle = pac_color; //color
 	context.fill();
 	context.beginPath(); //pacman eye
-	context.arc(center.x + 5, center.y - 15, 5, 0, 2* Math.PI); // circle
+	context.arc(center.i* 60 + 30 + 5, center.j* 60 + 30 - 15, 3, 0, 2* Math.PI); // circle
 	context.fillStyle = "black"; //color
 	context.fill();
 
@@ -104,66 +106,55 @@ function Start() {
 	board = new Array();
 	score = 0;
 	monsterImage=new Image();
-	monsterImage.src="blinky.png";
+	monster1Image=new Image();
+	monster2Image=new Image();
+	monster3Image=new Image();
+	monster4Image=new Image();
+	monster1Image.src="image/blinky.png";
+	monster2Image.src="image/pinky.png";
+	monster3Image.src="image/inky.png";
+	monster4Image.src="image/clyde.png";
 	heartImage=new Image();
-	heartImage.src="heart.jpg";
-	monsterImage.style.background= "transparent";
+	heartImage.src="image/heart.jpg";
 	bonusBugImage=new Image();
-	bonusBugImage.src="bug.jpg"
+	bonusBugImage.src="image/bee.png";
 	pac_color = "yellow";
 	lastDirection="right";
 	monsterTurn=false;
-	ateBonusBug=false;
-	var cnt = 100;
-	var food_remain = 50;
-	var pacman_remain = 1;
-	var monster_remain=numOfMonsters;
-	var t;
-	for (t = 0; t < numOfMonsters; t++) {
-		monstersPosition[t]=(new Object())
-	}
+	var totalFood = numOfBalls;
+	var emptyCell;
 	start_time = new Date();
 	for (var i = 0; i < 10; i++) {
 		board[i] = new Array();
-		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
-		for (var j = 0; j < 10; j++) {
-			if (
-				(i == 3 && j == 3) ||
-				(i == 3 && j == 4) ||
-				(i == 3 && j == 5) ||
-				(i == 6 && j == 1) ||
-				(i == 6 && j == 2)
-			) {
-				board[i][j] = 4;
-			} else {
-				var randomNum = Math.random();
-				if (randomNum <= (1.0 * food_remain) / cnt) {
-					food_remain--;
-					board[i][j] = 1;
-				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
-					shape.i = i;
-					shape.j = j;
-					pacman_remain--;
-					board[i][j] = 2;
-				}
-				else {
-					board[i][j] = 0;
-				}
-				cnt--;
-			}
+		for (var j = 0; j < 15; j++) {
+			board[i][j]=0;
 		}
 	}
+	createObstacles();
+	emptyCell=findRandomEmptyCell(board);
+	shape.i=emptyCell[0];
+	shape.j=emptyCell[1];
+	for (let i = 0; i < numOfMonsters; i++) {
+		monstersPosition[i]=(new Object())
+	}
 	for (let i = 0; i <numOfMonsters ; i++) {
-		var emptyCell = findRandomEmptySideCell(board);
+		emptyCell = findRandomEmptySideCell(board);
 		monstersPosition[i].i=emptyCell[0];
 		monstersPosition[i].j=emptyCell[1];
 	}
-	while (food_remain > 0) {
-		var emptyCell = findRandomEmptyCell(board);
-		board[emptyCell[0]][emptyCell[1]] = 1;
-		food_remain--;
+	for (let i=0;i<totalFood*0.6;i++){
+		emptyCell = findRandomEmptyCell(board);
+		board[emptyCell[0]][emptyCell[1]] = 5;
 	}
-	var emptyCell=findRandomEmptySideCell(board);
+	for (let i=0;i<totalFood*0.3;i++){
+		emptyCell = findRandomEmptyCell(board);
+		board[emptyCell[0]][emptyCell[1]] = 15;
+	}
+	for (let i=0;i<totalFood*0.1;i++){
+		emptyCell = findRandomEmptyCell(board);
+		board[emptyCell[0]][emptyCell[1]] = 25;
+	}
+	emptyCell=findRandomEmptySideCell(board);
 	bonusBugPosition.i=emptyCell[0];
 	bonusBugPosition.j=emptyCell[1];
 	keysDown = {};
@@ -239,16 +230,16 @@ function makeRandMove(object) {
 }
 
 function GetKeyPressed() {
-	if (keysDown[38]) {
+	if (keysDown[keyUp]) {//up
 		return 1;
 	}
-	if (keysDown[40]) {
+	if (keysDown[keyDown]) {//down
 		return 2;
 	}
-	if (keysDown[37]) {
+	if (keysDown[keyLeft]) {//left
 		return 3;
 	}
-	if (keysDown[39]) {
+	if (keysDown[keyRight]) {//right
 		return 4;
 	}
 }
@@ -260,39 +251,64 @@ function Draw() {
 	for (var i = 0; i < 10; i++) {
 		for (var j = 0; j < 10; j++) {
 			var center = new Object();
-			center.x = i * 60 + 30;
-			center.y = j * 60 + 30;
-			if (board[i][j] == 2) { //pacman drawing
-				if(lastDirection==="right")
-					drawRightPacman(center);
-				else if (lastDirection==="left")
-					drawLeftPacman(center)
-				else if(lastDirection==="up")
-					drawUpPacman(center)
-				else if (lastDirection==="down")
-					drawDownPacman(center)
-				else drawRightPacman(center)
-			}
-			else if (board[i][j] == 1) { // food circle drawing
+			center.x = i * 60 + 0;
+			center.y = j * 60 + 0;
+			if (board[i][j] == 5) { // food circle drawing 5 points
 				context.beginPath();
-				context.arc(center.x, center.y, 15, 0, 2 * Math.PI);
+				context.arc(center.x+30, center.y+30, 10, 0, 2 * Math.PI);
 				context.fillStyle = point5Balls; //color
 				context.fill(); //food
 				context.strokeStyle="black";
 				context.stroke();
-			} else if (board[i][j] == 4) { //wall drawing
+			}else if (board[i][j] == 15) { // food circle drawing 15 points
 				context.beginPath();
-				context.rect(center.x - 30, center.y - 30, 60, 60);
+				context.arc(center.x+30, center.y+30, 10, 0, 2 * Math.PI);
+				context.fillStyle = point15Balls; //color
+				context.fill(); //food
+				context.strokeStyle="black";
+				context.stroke();
+			}else if (board[i][j] == 25) { // food circle drawing 25 points
+				context.beginPath();
+				context.arc(center.x+30, center.y+30, 10, 0, 2 * Math.PI);
+				context.fillStyle = point25Balls; //color
+				context.fill(); //food
+				context.strokeStyle="black";
+				context.stroke();
+			}
+			else if (board[i][j] == 4) { //wall drawing
+				context.beginPath();
+				context.rect(center.x, center.y, 60, 60);
 				context.fillStyle = "grey"; //color
 				context.fill();
+				context.strokeStyle="black";
+				context.stroke();
 			}
 		}
 	}
 	for (let k = 0; k < numOfMonsters; k++) {
-		context.drawImage(monsterImage, monstersPosition[k].i*60+30, monstersPosition[k].j*60+30,35,45);
+		let monsterImage;
+		if (k==0)
+			monsterImage=monster1Image;
+		else if (k==1)
+			monsterImage=monster2Image;
+		else if (k==2)
+			monsterImage=monster3Image;
+		else if (k==3)
+			monsterImage=monster4Image;
+		context.drawImage(monsterImage, monstersPosition[k].i*60+15, monstersPosition[k].j*60+15,30,30);
 	}
-	if(!ateBonusBug)
+	if(bonusBugPosition.i>0)
 		drawBonusBug();
+	if(lastDirection==="right")
+		drawRightPacman(shape);
+	else if (lastDirection==="left")
+		drawLeftPacman(shape)
+	else if(lastDirection==="up")
+		drawUpPacman(shape)
+	else if (lastDirection==="down")
+		drawDownPacman(shape)
+	else
+		drawRightPacman(shape);
 	drawHearts();
 }
 
@@ -325,10 +341,17 @@ function UpdatePosition() {
 			lastDirection="right";
 		}
 	}
-	if (board[shape.i][shape.j] == 1) {
-		score++;
+	if (board[shape.i][shape.j] == 5) {
+		score+=5;
 	}
-	board[shape.i][shape.j] = 2;
+	if (board[shape.i][shape.j] == 15) {
+		score+=15;
+	}
+	if (board[shape.i][shape.j] == 25) {
+		score+=25;
+	}
+	//board[shape.i][shape.j] = 2;
+	checkBugBonus();
 	if(monsterTurn){
 		monsterTurn=false;
 		for (var i=0;i<numOfMonsters;i++){
@@ -337,13 +360,13 @@ function UpdatePosition() {
 	}else{
 		monsterTurn=true;
 	}
-	makeRandMove(bonusBugPosition);
+	if(bonusBugPosition.i>=0)
+		makeRandMove(bonusBugPosition);
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
 	if (score >= 20 && time_elapsed <= 10) {
 		pac_color = "green";
 	}
-	checkBugBonus();
 	if (score >= 50) {
 		window.clearInterval(interval);
 		$("audio")[0].pause();
@@ -392,11 +415,44 @@ function checkLoss() {
 }
 function checkBugBonus() {
 	if(bonusBugPosition.i==shape.i&&bonusBugPosition.j==shape.j){
-		ateBonusBug=true;
 		score+=50;
 		bonusBugPosition.i=-10;
 		bonusBugPosition.j=-10;
 	}
+}
+function createObstacles() {
+	for (let i = 0; i < 3; i++) {
+		var x=Math.floor(Math.random() * 7 + 1);
+		var y=Math.floor(Math.random() * 7 + 1);
+		while ((board[x][y]==4)){
+			 x=Math.floor(Math.random() * 7 + 1);
+			 y=Math.floor(Math.random() * 7 + 1);
+		}
+		var obstacle=Math.floor(Math.random() * 4.5);
+		if(obstacle==0){//cube
+			board[x][y]=4;
+			board[x+1][y+1]=4;
+			board[x+1][y]=4;
+			board[x][y+1]=4;
+		}else if(obstacle==1){ //right L
+			board[x][y]=4;
+			board[x][y+1]=4;
+			board[x-1][y]=4;
+		}
+		else if(obstacle==2){ //left L
+			board[x][y]=4;
+			board[x][y-1]=4;
+			board[x-1][y]=4;
+		}else if(obstacle==3){ // line
+			board[x][y]=4;
+			board[x+1][y]=4;
+			board[x-1][y]=4;
+		}else if(obstacle==4){ // line
+		board[x][y+1]=4;
+		board[x][y]=4;
+		board[x][y-1]=4;
+	}
+		}
 }
 
 function continueGame(board) {

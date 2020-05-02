@@ -4,41 +4,37 @@
     <meta charset="UTF-8">
     <title>test</title>
     <script src="./jquery-3.4.1.slim.min.js"></script>
-    <script type="text/javascript" src="./app.js"></script>
-    <script src="./jquery.validate.js"></script>
-    <script src="./formValidation.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script src="js/jquery.validate.js"></script>
+    <script src="js/formValidation.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
     <div class="container" style="text-align: center">
-        <div class="row">
-            <div class="col-sm-1" style="text-align: left;">
-                <div id="score">
-                    <label for="lblScore">Score:</label>
-                    <output id="lblScore" type="text" />
+        <div class="row" style="height: 80px">
+            <div class="col-sm-2" style="text-align: left;">
+                <div id="score" style="padding-left: 100px; height: 40px ;"  >
+                    <label for="lblScore" style="float:left; margin-right: 3px;">Score:</label>
+                    <output id="lblScore" type="text"  style="padding-bottom: 2px"/>
                 </div>
-                <div id="time">
-                    <label for="lblTime">Time:</label>
-                    <output id="lblTime" type="text" />
-                </div>
-                <div id="heart">
-                    <label for="lblheart">Heart:</label>
-                    <output id="lblheart" type="text" />
+                <div id="time" style="padding-left: 100px; height: 40px">
+                    <label for="lblTime" style="float:left;margin-right: 3px ">Time:</label>
+                    <output id="lblTime" type="text" style="padding-bottom: 2px"/>
                 </div>
             </div>
-        <div heartCanvas class="col-sm-9" style="text-align: center">
-            <canvas  id="heartCanvas" height="100" width="200"></canvas>
-    <div  id="game" class="col-sm-9" style="text-align: center">
-        <canvas style="border-style: groove" id="canvas" height="600" width="600" ></canvas>
-        <button onclick="beginGame()" class="btn btn-default btn-lg active">New Game</button>
-    </div>
-
-    </div>
+            <div  class="col-sm-10" >
+                <div align="left">
+                    <canvas  id="heartCanvas" height="80" width="400" style="padding-left: 50px"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div  id="game" class="col-sm-10" style="text-align: center">
+                <canvas style="border-style: groove" id="canvas" height="600" width="600" ></canvas>
+            </div>
             <div class="col-sm-2" style="text-align: center;">
                 <label >Game Settings:</label>
-                <br>
-                <br>
                 <br>
                 <div id="lblgameTime">
                     <label >Game Time:</label>
@@ -53,11 +49,11 @@
                     <output id="lblnumOfMons_Output" type="text" />
                 </div>
                 <div  id="lblUpkey">
-                    <label>Left Key:</label>
+                    <label>Up Key:</label>
                     <output id="lblUpkey_Output" type="text" />
                 </div>
                 <div  id="lblDowntkey">
-                    <label>Left Key:</label>
+                    <label>Down Key:</label>
                     <output id="lblDownkey_Output" type="text" />
                 </div>
                 <div  id="lblLeftkey">
@@ -65,7 +61,7 @@
                     <output id="lblLeftkey_Output" type="text" />
                 </div>
                 <div  id="lblRightkey">
-                    <label>Left Key:</label>
+                    <label>Right Key:</label>
                     <output id="lblRightkey_Output" type="text" />
                 </div>
                 <div  id="lbl5PointColor">
@@ -75,17 +71,22 @@
                 <div  id="lbl15PointColor">
                     <label>15 Point Color:</label>
                     <canvas id="15pointColor" width="20" height="10"></canvas>
+
                 </div>
                 <div  id="lbl25PointColor">
                     <label>25 Point Color:</label>
                     <canvas id="25pointColor" width="20" height="10"></canvas>
                 </div>
+                <div>
+                    <button onclick="beginGame()" class="btn btn-default btn-lg active">New Game</button>
+                    <button  id="btnSetSettings" class="btn btn-default btn-lg active">Settings</button>
+                </div>
 
             </div>
         </div>
-</div>
+    </div>
 <audio controls style='display:none'>
-    <source src="moshik.mp3" type="audio/mpeg" >
+    <source src="sound/moshik.mp3" type="audio/mpeg" >
 </audio>
 
 </body>
