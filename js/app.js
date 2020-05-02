@@ -12,6 +12,8 @@ var monster1Image;
 var monster2Image;
 var monster3Image;
 var monster4Image;
+var gameOverImg;
+var winnerImg;
 var heartImage;
 var bonusBugImage;
 var monstersPosition = new Array();
@@ -21,14 +23,16 @@ var keyLeft=37;
 var keyRight=39;
 var gameTime=60;
 var numOfBalls=50;
-var point5Balls="#ffe0bd";
+var point5Balls="#cc3300";
 var point15Balls="#0000FF";
 var point25Balls="#00FF00";
 var numOfMonsters=1;
 var monsterTurn;
 var pacmanLives;
 var bonusBugPosition=new Object();
-
+var numOfBallsOnBoard;
+var totalFood;
+var emptyCell;
 
 function beginGame() {
 	pacmanLives=5;
@@ -100,9 +104,7 @@ function drawDownPacman(center) {
 
 }
 
-
-
-function Start() {
+function init() {
 	board = new Array();
 	score = 0;
 	monsterImage=new Image();
@@ -110,19 +112,27 @@ function Start() {
 	monster2Image=new Image();
 	monster3Image=new Image();
 	monster4Image=new Image();
+	gameOverImg=new Image();
+	winnerImg=new Image();
+	heartImage=new Image();
+	bonusBugImage=new Image();
+	gameOverImg.src="image/gameover2.png";
+	winnerImg.src="image/winner.jpg";
 	monster1Image.src="image/blinky.png";
 	monster2Image.src="image/pinky.png";
 	monster3Image.src="image/inky.png";
 	monster4Image.src="image/clyde.png";
-	heartImage=new Image();
 	heartImage.src="image/heart.jpg";
-	bonusBugImage=new Image();
 	bonusBugImage.src="image/bee.png";
 	pac_color = "yellow";
 	lastDirection="right";
 	monsterTurn=false;
-	var totalFood = numOfBalls;
-	var emptyCell;
+	totalFood = numOfBalls;
+	numOfBallsOnBoard=numOfBalls;
+}
+
+function Start() {
+	init();
 	start_time = new Date();
 	for (var i = 0; i < 10; i++) {
 		board[i] = new Array();
@@ -342,15 +352,17 @@ function UpdatePosition() {
 		}
 	}
 	if (board[shape.i][shape.j] == 5) {
+		numOfBallsOnBoard--;
 		score+=5;
 	}
 	if (board[shape.i][shape.j] == 15) {
+		numOfBallsOnBoard--;
 		score+=15;
 	}
 	if (board[shape.i][shape.j] == 25) {
+		numOfBallsOnBoard--;
 		score+=25;
 	}
-	//board[shape.i][shape.j] = 2;
 	checkBugBonus();
 	if(monsterTurn){
 		monsterTurn=false;
@@ -367,11 +379,21 @@ function UpdatePosition() {
 	if (score >= 20 && time_elapsed <= 10) {
 		pac_color = "green";
 	}
-	if (score >= 50) {
-		window.clearInterval(interval);
-		$("audio")[0].pause();
-		setTimeout(function(){window.alert("Game completed");},250);
-	}if(checkLoss()){
+	if (numOfBallsOnBoard == 0 ||time_elapsed>=gameTime ) {
+		if(time_elapsed>=gameTime){
+			window.clearInterval(interval);
+			$("audio")[0].pause();
+			drawGameOver();
+			setTimeout(function (){window.alert("You are better than "+score+" points");}, 250)
+		}
+		else if(numOfBallsOnBoard == 0) {
+			window.clearInterval(interval);
+			$("audio")[0].pause();
+			drawWinner();
+			setTimeout(function () {window.alert("Winner!!!");}, 250);
+		}
+	}
+	if(checkLoss()){
 		pacmanLives--;
 		score-=10;
 		var audio = new Audio('buzzer.mp3');
@@ -379,7 +401,8 @@ function UpdatePosition() {
 		if(pacmanLives==0){
 			window.clearInterval(interval);
 			$("audio")[0].pause();
-			setTimeout(function (){window.alert("Game Loss");}, 250)
+			drawGameOver();
+			setTimeout(function (){window.alert("Loser!");}, 250)
 		}else {
 			continueGame(board);
 		}
@@ -463,7 +486,12 @@ function continueGame(board) {
 	}
 }
 
-
+function drawGameOver() {
+	context.drawImage(gameOverImg, 50,50,500,500);
+}
+function drawWinner() {
+	context.drawImage(winnerImg, 50,50,400,400);
+}
 
 
 
