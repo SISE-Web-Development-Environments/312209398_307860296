@@ -16,7 +16,7 @@
 	<canvas  id="headCanvas" height="25" width="800" align="center" ></canvas>
 	</br>
 </div>
-<divmenu id='cssmenu' align="center">
+<divmenu id='cssmenu' align="center" >
 	<nav class="nav" >
 		<a href="#" class="nav-item" active-color="orange" id="aWelcome">Welcome</a>
 		<a href="#" class="nav-item" active-color="blue" id="aLogin">Login</a>
@@ -194,7 +194,6 @@
 			</div>
 		</div>
 	</form>
-
 </div>
 <div class="content" id="gameDiv" style=" display:none ">
 	<div class="container align-center" style="text-align: center">
@@ -202,6 +201,10 @@
 		<br>
 		<div class="row">
 			<div class="col-sm-2" style="text-align: left;">
+				<div id="playerName" class="form-group">
+					<h5 for="lblName">current user:</h5>
+					<output id="lblName" type="text" />
+				</div>
 				<div id="score" class="form-group">
 					<h5 for="lblScore">Score:</h5>
 					<output id="lblScore" type="text" />
@@ -212,7 +215,7 @@
 				</div>
 				<div id="heart" class="form-group" >
 					<h5 for="heartCanvas" >Heart:</h5>
-					<canvas  id="heartCanvas" height="80" width="50"></canvas>
+					<canvas  id="heartCanvas" height="80" width="300"></canvas>
 				</div>
 				<br>
 				<button onclick="beginNewGame()" class="btn btn-default">New Game</button>
@@ -222,45 +225,45 @@
 			<div  id="game" class="col-sm-8" style=" text-align: center">
 				<canvas style="border-style: groove" id="canvas" height="600" width="600" style=" text-align: center" ></canvas>
 			</div>
-			<div class="col-sm-2" style="text-align: left;">
+			<div class="col-sm-2" style="text-align: left;" >
 				<h4>Game Setting:</h4>
-				<div id="tlbl" class="form-group" >
+				<div style="margin-bottom: 0px;" id="tlbl" class="form-group" >
 					<h6  >Game Time:</h6>
 					<output id="lblgameTime_Output" type="text" />
 				</div>
-				<div id="noblbl" class="form-group" >
+				<div id="noblbl" class="form-group" style="margin-bottom: 0px;">
 					<h6 >Number of Balls: </h6>
 					<output id="lblnumOfBalls_Output" type="text" />
 				</div>
-				<div id="nomlbl" class="form-group" >
+				<div id="nomlbl" class="form-group" style="margin-bottom: 0px;">
 					<h6>Number of Monsters:</h6>
 					<output id="lblnumOfMons_Output" type="text" />
 				</div>
-				<div id="kulbl" class="form-group" >
+				<div id="kulbl" class="form-group" style="margin-bottom: 0px;">
 					<h6>Up Key:</h6>
 					<output id="lblUpkey_Output" type="text" />
 				</div>
-				<div id="kdlbl" class="form-group" >
+				<div id="kdlbl" class="form-group" style="margin-bottom: 0px;">
 					<h6>Down Key:</h6>
 					<output id="lblDownkey_Output" type="text" />
 				</div>
-				<div id="kllbl" class="form-group" >
+				<div id="kllbl" class="form-group" style="margin-bottom: 0px;">
 					<h6>Left Key:</h6 >
 					<output id="lblLeftkey_Output" type="text" />
 				</div>
-				<div id="krlbl" class="form-group" >
+				<div id="krlbl" class="form-group" style="margin-bottom: 0px;">
 					<h6>Right Key:</h6>
 					<output id="lblRightkey_Output" type="text" />
 				</div>
-				<div id="5plbl" class="form-group" >
+				<div id="5plbl" class="form-group" style="margin-bottom: 0px;">
 					<h6>5 Point Color:</h6>
 					<canvas id="color5canvas" width="20" height="10"></canvas>
 				</div>
-				<div id="15plbl" class="form-group" >
+				<div id="15plbl" class="form-group" style="margin-bottom: 0px;">
 					<h6>15 Point Color:</h6>
 					<canvas id="color15canvas" width="20" height="10"></canvas>
 				</div>
-				<div id="25plbl" class="form-group" >
+				<div id="25plbl" class="form-group" style="margin-bottom: 0px;">
 					<h6>25 Point Color:</h6>
 					<canvas id="color25canvas" width="20" height="10"></canvas>
 				</div>
@@ -269,7 +272,7 @@
 		</div>
 	</div>
 </div>
-<footer id="footer">Tzlil & Omer site </footer>
+<footer style="margin-top: 0px;" id="footer">Tzlil & Omer site. for any questions please contact us by email: omerrei@post.bgu.ac.il</footer>
 <script type="text/javascript" src="js/menu.js"></script>
 <audio controls style='display:none'>
 	<source src="sound/moshik.mp3" type="audio/mpeg" >

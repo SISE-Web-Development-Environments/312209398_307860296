@@ -119,9 +119,10 @@ var modal = document.getElementById("myModal");
 var closeSpan = document.getElementsByClassName("close")[0];
 
 // When the user clicks on <span> (x), close the modal
-/*closeSpan.onclick = function() {
+closeSpan.onclick = function() {
     modal.style.display = "none";
-}*/
+}
+
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == modal) {
@@ -139,7 +140,6 @@ function checkIfUserExist()
     var user = sessionStorage.getItem(username);
     if (user!=null && user==pass){
         alert("Login successfully");
-        $("#aWelcome").val("Welcome " + username);
         currUser=user;
         return true;
     }

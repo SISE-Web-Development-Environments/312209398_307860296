@@ -5,6 +5,7 @@
 }
 
 body {
+
     text-align: center;
     width: 100%;
     -webkit-box-pack: center;
@@ -15,6 +16,8 @@ body {
     background-image: url("https://www.toptal.com/designers/subtlepatterns/patterns/debut_light.png");
     font-family: 'DM Sans', sans-serif;
     font-weight: 500;
+    zoom: 74%;
+
 }
 
 .nav {

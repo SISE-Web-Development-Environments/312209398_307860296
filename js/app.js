@@ -38,7 +38,7 @@ var emptyCell;
 
 function beginNewGame() {
 	finishGame();
-	beginGame();
+	setTimeout(function (){beginGame();}, 100);
 }
 
 function finishGame(){
@@ -221,7 +221,7 @@ function findRandomEmptyCell(board) {
 	while (board[i][j] != 0) {
 		i = Math.floor(Math.random() * 9 +0.7);
 		j = Math.floor(Math.random() * 9 +0.7);
-		if(counter==50){
+		if(counter==15){
 			return findManualy(board);
 		}
 		counter++;
@@ -236,6 +236,7 @@ function findManualy(board) {
 				return [i,j];
 		}
 	}
+	return [0,0];
 }
 
 function findRandomEmptySideCell(board) {
@@ -299,6 +300,7 @@ function GetKeyPressed() {
 
 function Draw() {
 	canvas.width = canvas.width; //clean board
+	lblName.value=currUser;
 	lblScore.value = score;
 	lblTime.value = time_elapsed;
 	for (var i = 0; i < 10; i++) {
@@ -428,7 +430,7 @@ function UpdatePosition() {
 		pac_color = "green";
 	}
 	if (time_elapsed>=gameTime ) {
-		if(score<=100){
+		if(score<100){
 			drawGameOver();
 			setTimeout(function (){window.alert("You are better than "+score+" points");}, 250)
 			finishGame();
@@ -437,8 +439,12 @@ function UpdatePosition() {
 			drawWinner();
 			setTimeout(function () {drawWinner();window.alert("Winner!!!");}, 250)
 			finishGame();
-
 		}
+	}
+	if (checkWin()&&bonusBugPosition.i<0){
+		drawWinner();
+		setTimeout(function () {drawWinner();window.alert("Winner!!!");}, 250);
+		finishGame();
 	}
 	if(checkLoss()){
 		pacmanLives--;
@@ -483,6 +489,13 @@ function checkLoss() {
 	}
 	return false;
 }
+
+function checkWin() {
+	if(score>= (Math.floor(totalFood*0.6*5)+Math.floor(totalFood*0.3*15)+Math.floor(totalFood*0.1*25)))
+		return true;
+	return false;
+}
+
 function checkBugBonus() {
 	if(bonusBugPosition.i==shape.i&&bonusBugPosition.j==shape.j){
 		score+=50;
@@ -498,7 +511,7 @@ function checkheartCandy() {
 	}
 }
 function createObstacles() {
-	for (let i = 0; i < 3; i++) {
+	for (let i = 0; i < 2; i++) {
 		var x=Math.floor(Math.random() * 7 + 1);
 		var y=Math.floor(Math.random() * 7 + 1);
 		while ((board[x][y]==4)){
@@ -506,7 +519,7 @@ function createObstacles() {
 			 y=Math.floor(Math.random() * 7 + 1);
 		}
 		var obstacle=Math.floor(Math.random() * 4.5);
-		if(obstacle==0){//cube
+		if(obstacle==0){// cube
 			board[x][y]=4;
 			board[x+1][y+1]=4;
 			board[x+1][y]=4;
@@ -538,6 +551,9 @@ function continueGame(board) {
 		monstersPosition[i].i=pos[0];
 		monstersPosition[i].j=pos[1];
 	}
+	let newRandPos=findRandomEmptyCell(board);
+	shape.i=newRandPos[0];
+	shape.j=newRandPos[1];
 }
 
 function drawGameOver() {
