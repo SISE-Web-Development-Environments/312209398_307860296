@@ -3,109 +3,120 @@
 <head>
 	<meta charset="UTF-8">
 	<title>test</title>
-	<script src="./jquery-3.4.1.slim.min.js"></script>
-	<script type="text/javascript" src="js/app.js"></script>
+	<script src="js/jquery-3.4.1.slim.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
 	<script src="js/jquery.validate.js"></script>
 	<script src="js/formValidation.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="js/app.js"></script>
+	<script src="js/menu.js"></script>
+	<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >-->
 </head>
 <body>
-<div id='cssmenu'>
-	<ul>
-		<li class='active' id='welcome'><a href='#'>welcome</a></li>
-		<li class='register'><a ref='#'>register</a></li>
-		<li class='login'><a href='#'>login</a></li>
-		<li id='about'><a href='#'>about</a></li>
-	</ul>
+<div align="center">
+	<canvas  id="headCanvas" height="25" width="800" align="center" ></canvas>
+	</br>
 </div>
-<div class="content" id="welcomeDiv" >
-	<div style="border-style: solid; margin-left: 250px;margin-right: 250px">
-		<img src="image/pacTry.png" height="=100px" width="1200" style="padding-left: 250px">
+<divmenu id='cssmenu' align="center">
+	<nav class="nav" >
+		<a href="#" class="nav-item" active-color="orange" id="aWelcome">Welcome</a>
+		<a href="#" class="nav-item" active-color="blue" id="aLogin">Login</a>
+		<a href="#" class="nav-item" active-color="red" id="aRegister">Register</a>
+		<a href="#" class="nav-item" active-color="green" id="aAbout">About</a>
+		<span class="nav-indicator"></span>
+	</nav>
+</divmenu>
 
-		<button type="button" id="loginBtn" class="btn btn-success">Log in</button>
-		<button type="button" id="signupBtn"class="btn btn-warning">Sign up</button>
-	</div>
+<div class="content" id="welcomeDiv" align="center" >
+	</br>
+	<img src="image/welcomePic.png">
+	</br>
+	<fieldset class="fieldWelcome" >
+		<div >
+
+			<button type="button" id="loginBtn" class="btn btn-warning">Log in</button>
+			<button type="button" id="signupBtn"class="btn btn-warning">Register</button>
+		</div>
+	</fieldset>
 </div>
-
 <div class="content" id="settingsDiv" style='display:none'>
-		<label style="align: center">Game Settings</label>
-		<form  id="gameSettingform" method="post" class="form-horizontal" action="">
-			<div class="form-group">
-				<label class="col-sm-4 control-label" for="keyup">Key Up:</label>
-				<div class="col-sm-1">
-					<input type="text"  class="form-control" id="keyup" name="keyup" placeholder="keyup" maxlength="1" onkeydown="keyup_Output.value=event.keyCode;keyup.value=''"/>
-				</div>
-				<output style="color: red"  id="keyup_Output">38</output>
+	<h3  style="align: center"> Game Settings</h3>
+	<form  id="gameSettingform" method="post" class="form-horizontal" action="">
+		<div class="form-group">
+			<label class="col-sm-4 control-label" for="keyup">Key Up:</label>
+			<div class="col-sm-4">
+				<input type="text"  class="form-control" id="keyup" name="keyup" placeholder="keyup" maxlength="1" onkeydown="keyup_Output.value=event.keyCode;keyup.value=''"/>
 			</div>
-			<div class="form-group">
-				<label class="col-sm-4 control-label" for="keydown">Key Down:</label>
-				<div class="col-sm-1">
-					<input type="text"  class="form-control" id="keydown" name="keydown" placeholder="keydown" maxlength="1" onkeydown="keydown_Output.value=event.keyCode;keydown.value=''"/>
-				</div>
-				<output style="color: red"  id="keydown_Output">40</output>
+			<output style="color: blue"  id="keyup_Output">38</output>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-4 control-label" for="keydown">Key Down:</label>
+			<div class="col-sm-4">
+				<input type="text"  class="form-control" id="keydown" name="keydown" placeholder="keydown" maxlength="1" onkeydown="keydown_Output.value=event.keyCode;keydown.value=''"/>
 			</div>
-	<div class="form-group">
-		<label class="col-sm-4 control-label" for="keyleft">Key Left:</label>
-		<div class="col-sm-1">
-			<input type="text"  class="form-control" id="keyleft" name="keyleft" placeholder="keyleft" maxlength="1" onkeydown="keyleft_Output.value=event.keyCode;keyleft.value=''"/>
+			<output style="color: blue"  id="keydown_Output">40</output>
 		</div>
-		<output style="color: #ff0000" id="keyleft_Output">37</output>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-4 control-label" for="keyright">Key Right:</label>
-		<div class="col-sm-1">
-			<input type="text"  class="form-control" id="keyright" name="keyright" placeholder="keyright" maxlength="1" onkeydown="keyright_Output.value=event.keyCode;keyright.value=''"/>
+		<div class="form-group">
+			<label class="col-sm-4 control-label" for="keyleft">Key Left:</label>
+			<div class="col-sm-4">
+				<input type="text"  class="form-control" id="keyleft" name="keyleft" placeholder="keyleft" maxlength="1" onkeydown="keyleft_Output.value=event.keyCode;keyleft.value=''"/>
+			</div>
+			<output style="color: blue" id="keyleft_Output">37</output>
 		</div>
-		<output style="color: red"  id="keyright_Output">39</output>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-4 control-label" for="numberBalls">Number of balls:</label>
-		<div class="col-sm-2">
-			<input type="range" value="50" class="form-control" id="numberBalls" name="numberBalls" placeholder="numberBalls" min="50" max="90" oninput="numberBalls_Output.value=numberBalls.value"/>
+		<div class="form-group">
+			<label class="col-sm-4 control-label" for="keyright">Key Right:</label>
+			<div class="col-sm-4">
+				<input type="text"  class="form-control" id="keyright" name="keyright" placeholder="keyright" maxlength="1" onkeydown="keyright_Output.value=event.keyCode;keyright.value=''"/>
+			</div>
+			<output style="color: blue"  id="keyright_Output">39</output>
 		</div>
-		<output style="color: red"  id="numberBalls_Output">50</output>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-4 control-label" for="5PointBalls">5 point balls:</label>
-		<div class="col-sm-1">
-			<input type="color" value="#cc3300"  class="form-control" id="5PointBalls" name="5PointBalls" placeholder="5PointBalls"/>
+		<div class="form-group">
+			<label class="col-sm-4 control-label" for="numberBalls">Number of balls:</label>
+			<div class="col-sm-4">
+				<input type="range" value="50" class="form-control" id="numberBalls" name="numberBalls" placeholder="numberBalls" min="50" max="90" oninput="numberBalls_Output.value=numberBalls.value"/>
+			</div>
+			<output style="color: blue"  id="numberBalls_Output">50</output>
 		</div>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-4 control-label" for="15PointBalls">15 point balls:</label>
-		<div class="col-sm-1">
-			<input type="color" value="#0000FF"  class="form-control" id="15PointBalls" name="15PointBalls" placeholder="15PointBalls"/>
+		<div class="form-group">
+			<label class="col-sm-4 control-label" for="5PointBalls">5 point balls:</label>
+			<div class="col-sm-4">
+				<input type="color" value="#cc3300"  class="form-control" id="5PointBalls" name="5PointBalls" placeholder="5PointBalls"/>
+			</div>
 		</div>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-4 control-label" for="25PointBalls">25 point balls:</label>
-		<div class="col-sm-1">
-			<input type="color" value="#00FF00" class="form-control" id="25PointBalls" name="25PointBalls" placeholder="25PointBalls"/>
+		<div class="form-group">
+			<label class="col-sm-4 control-label" for="15PointBalls">15 point balls:</label>
+			<div class="col-sm-4">
+				<input type="color" value="#0000FF"  class="form-control" id="15PointBalls" name="15PointBalls" placeholder="15PointBalls"/>
+			</div>
 		</div>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-4 control-label" for="gameTime">Game time:</label>
-		<div class="col-sm-2">
-			<input type="range" value="60"  class="form-control" id="gameTime" name="gameTime" placeholder="gameTime" min="60" max="300" oninput="gameTime_Output.value=gameTime.value"/>
+		<div class="form-group">
+			<label class="col-sm-4 control-label" for="25PointBalls">25 point balls:</label>
+			<div class="col-sm-4">
+				<input type="color" value="#00FF00" class="form-control" id="25PointBalls" name="25PointBalls" placeholder="25PointBalls"/>
+			</div>
 		</div>
-		<output style="color: red"  id="gameTime_Output">60</output>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-4 control-label" for="numberMonters">Number of monsters:</label>
-		<div class="col-sm-2">
-			<input type="range" value="2"  class="form-control" id="numberMonters" name="numberMonters" placeholder="numberMonters" min="1" max="4" oninput="numberMonters_Output.value=numberMonters.value"/>
+		<div class="form-group">
+			<label class="col-sm-4 control-label" for="gameTime">Game time:</label>
+			<div class="col-sm-4">
+				<input type="range" value="60"  class="form-control" id="gameTime" name="gameTime" placeholder="gameTime" min="60" max="300" oninput="gameTime_Output.value=gameTime.value"/>
+			</div>
+			<output style="color: blue"  id="gameTime_Output">60</output>
 		</div>
-		<output style="color: red"  id="numberMonters_Output">2</output>
-	</div>
-	<div class="col-sm-5 col-sm-offset-4">
-		<button type="button" class="btn btn-primary" name="randomSetting"  id="randomSettings" onclick="randomSett()">Random settings</button>
-		<button type="submit" class="btn btn-primary" name="submitSettings"  id="submitSettings">Start game</button>
-	</div>
+		<div class="form-group">
+			<label class="col-sm-4 control-label" for="numberMonters">Number of monsters:</label>
+			<div class="col-sm-4">
+				<input type="range" value="2"  class="form-control" id="numberMonters" name="numberMonters" placeholder="numberMonters" min="1" max="4" oninput="numberMonters_Output.value=numberMonters.value"/>
+			</div>
+			<output style="color: blue"  id="numberMonters_Output">2</output>
+		</div>
+		<div class="col-sm-4 col-sm-offset-4">
+			<button type="button" class="btn btn-primary" name="randomSetting"  id="randomSettings" onclick="randomSett()">Random settings</button>
+			<button type="submit" class="btn btn-primary" name="submitSettings"  id="submitSettings">Start game</button>
+		</div>
 	</form>
+
 </div>
-<div id="myModal" class="modal">
-	<div class="modal-content">
+<div id="myModal" class="modal"  style='display:none'>
+	<div class="modal-content" >
 		<span class="close">&times;</span>
 		<p>המשחק של עומר וצליל</p>
 		<p>נעשה שימוש ב-template מהקישור הבא:</p>
@@ -114,45 +125,46 @@
 
 </div>
 <div class="content" id="registerDiv" style='display:none'>
-	<!--sign up-->
 	<div class="classSignUp">
-		<label style="align-content: center">Sign Up</label>
+		<br>
+		<h3>Register</h3>
+		<br>
 		<form id="signupForm" method="post" class="form-horizontal" action="">
 			<div class="form-group">
 				<label class="col-sm-4 control-label" for="username">Username</label>
-				<div class="col-sm-5">
+				<div class="col-sm-4">
 					<input type="text" class="form-control" id="username" name="username" placeholder="Username" />
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label" for="datepicker" >Birth Date</label>
-				<div class="col-sm-5">
+				<div class="col-sm-4">
 					<input type="date" class="form-control" id="datepicker" name="datepicker" placeholder="datepicker"  />
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label class="col-sm-4 control-label" for="email">Email</label>
-				<div class="col-sm-5">
+				<div class="col-sm-4">
 					<input type="text" class="form-control" id="email" name="email" placeholder="Email" />
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label class="col-sm-4 control-label" for="password">Password</label>
-				<div class="col-sm-5">
+				<div class="col-sm-4">
 					<input type="password" class="form-control" id="password" name="password" placeholder="Password" />
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label class="col-sm-4 control-label" for="confirm_password">Confirm password</label>
-				<div class="col-sm-5">
+				<div class="col-sm-4">
 					<input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm password" />
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-9 col-sm-offset-4">
+				<div class="col-sm-4 col-sm-offset-4">
 					<button type="submit" class="btn btn-primary" name="signup" value="Sign up" >Sign up</button>
 				</div>
 			</div>
@@ -160,108 +172,109 @@
 	</div>
 </div>
 <div class="content" id="loginDiv" style='display:none'>
-		<label style="align-content: center">Login</label>
-		<form id="loginForm" method="post" class="form-horizontal" >
-			<div class="form-group">
-				<label class="col-sm-4 control-label" for="loginUsername">Username</label>
-				<div class="col-sm-5">
-					<input type="text" class="form-control" id="loginUsername" name="username" placeholder="Username" />
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-4 control-label" for="loginPassword">Password</label>
-				<div class="col-sm-5">
-					<input type="password" class="form-control" id="loginPassword" name="password" placeholder="Password" />
-				</div>
-			</div>
-
-			<div class="form-group">
-				<div class="col-sm-9 col-sm-offset-4">
-					<input type="submit" id="loginButton" class="btn btn-primary" name="login"  value="Log in"></input>
-				</div>
-			</div>
-		</form>
-</div>
-<div class="content" id="gameDiv" style=" display:none ">
-	<div class="container" style="text-align: center">
-		<div class="row" style="height: 80px">
-			<div class="col-sm-2" style="text-align: left;">
-				<div id="score" style="padding-left: 100px; height: 40px ;"  >
-					<label for="lblScore" style="float:left; margin-right: 3px;">Score:</label>
-					<output id="lblScore" type="text"  style="padding-bottom: 2px"/>
-				</div>
-				<div id="time" style="padding-left: 100px; height: 40px">
-					<label for="lblTime" style="float:left;margin-right: 3px ">Time:</label>
-					<output id="lblTime" type="text" style="padding-bottom: 2px"/>
-				</div>
-			</div>
-			<div  class="col-sm-10" >
-				<div align="left">
-					<canvas  id="heartCanvas" height="80" width="400" style="padding-left: 50px"></canvas>
-				</div>
+	<br>
+	<h3>Login</h3>
+	<form id="loginForm" method="post" class="form-horizontal" >
+		<div class="form-group">
+			<label class="col-sm-4 control-label" for="loginUsername">Username</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" id="loginUsername" name="username" placeholder="Username" />
 			</div>
 		</div>
-		<div class="row">
-			<div  id="game" class="col-sm-10" style="text-align: center">
-				<canvas style="border-style: groove" id="canvas" height="600" width="600" ></canvas>
+		<div class="form-group">
+			<label class="col-sm-4 control-label" for="loginPassword">Password</label>
+			<div class="col-sm-4">
+				<input type="password" class="form-control" id="loginPassword" name="password" placeholder="Password" />
 			</div>
-			<div class="col-sm-2" style="text-align: center;">
-				<label >Game Settings:</label>
-				<br>
-				<div id="lblgameTime">
-					<label >Game Time:</label>
-					<output id="lblgameTime_Output" type="text"  />
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-4 col-sm-offset-4">
+				<input type="submit" id="loginButton" class="btn btn-primary" name="login"  value="Log in"></input>
+			</div>
+		</div>
+	</form>
+
+</div>
+<div class="content" id="gameDiv" style=" display:none ">
+	<div class="container align-center" style="text-align: center">
+		<br>
+		<br>
+		<div class="row">
+			<div class="col-sm-2" style="text-align: left;">
+				<div id="score" class="form-group">
+					<h5 for="lblScore">Score:</h5>
+					<output id="lblScore" type="text" />
 				</div>
-				<div  id="lblnumOfBalls">
-					<label>Number of Balls:</label>
+				<div id="time" class="form-group" >
+					<h5 for="lblTime">Time:</h5>
+					<output id="lblTime" type="text" />
+				</div>
+				<div id="heart" class="form-group" >
+					<h5 for="heartCanvas" >Heart:</h5>
+					<canvas  id="heartCanvas" height="80" width="50"></canvas>
+				</div>
+				<br>
+				<button onclick="beginNewGame()" class="btn btn-default">New Game</button>
+				<br>
+				<button  id="btnSetSettings" class="btn btn-default">Game Settings</button>
+			</div>
+			<div  id="game" class="col-sm-8" style=" text-align: center">
+				<canvas style="border-style: groove" id="canvas" height="600" width="600" style=" text-align: center" ></canvas>
+			</div>
+			<div class="col-sm-2" style="text-align: left;">
+				<h4>Game Setting:</h4>
+				<div id="tlbl" class="form-group" >
+					<h6  >Game Time:</h6>
+					<output id="lblgameTime_Output" type="text" />
+				</div>
+				<div id="noblbl" class="form-group" >
+					<h6 >Number of Balls: </h6>
 					<output id="lblnumOfBalls_Output" type="text" />
 				</div>
-				<div  id="lblnumOfMons">
-					<label>Number of Monsters:</label>
+				<div id="nomlbl" class="form-group" >
+					<h6>Number of Monsters:</h6>
 					<output id="lblnumOfMons_Output" type="text" />
 				</div>
-				<div  id="lblUpkey">
-					<label>Up Key:</label>
+				<div id="kulbl" class="form-group" >
+					<h6>Up Key:</h6>
 					<output id="lblUpkey_Output" type="text" />
 				</div>
-				<div  id="lblDowntkey">
-					<label>Down Key:</label>
+				<div id="kdlbl" class="form-group" >
+					<h6>Down Key:</h6>
 					<output id="lblDownkey_Output" type="text" />
 				</div>
-				<div  id="lblLeftkey">
-					<label>Left Key:</label>
+				<div id="kllbl" class="form-group" >
+					<h6>Left Key:</h6 >
 					<output id="lblLeftkey_Output" type="text" />
 				</div>
-				<div  id="lblRightkey">
-					<label>Right Key:</label>
+				<div id="krlbl" class="form-group" >
+					<h6>Right Key:</h6>
 					<output id="lblRightkey_Output" type="text" />
 				</div>
-				<div  id="lbl5PointColor">
-					<label>5 Point Color:</label>
-					<canvas id="5pointColor" width="20" height="10"></canvas>
+				<div id="5plbl" class="form-group" >
+					<h6>5 Point Color:</h6>
+					<canvas id="color5canvas" width="20" height="10"></canvas>
 				</div>
-				<div  id="lbl15PointColor">
-					<label>15 Point Color:</label>
-					<canvas id="15pointColor" width="20" height="10"></canvas>
-
+				<div id="15plbl" class="form-group" >
+					<h6>15 Point Color:</h6>
+					<canvas id="color15canvas" width="20" height="10"></canvas>
 				</div>
-				<div  id="lbl25PointColor">
-					<label>25 Point Color:</label>
-					<canvas id="25pointColor" width="20" height="10"></canvas>
+				<div id="25plbl" class="form-group" >
+					<h6>25 Point Color:</h6>
+					<canvas id="color25canvas" width="20" height="10"></canvas>
 				</div>
-				<div style="float:left" >
-					<button onclick="beginNewGame()" class="btn btn-default btn-lg active">New Game</button>
-					<button  id="btnSetSettings" class="btn btn-default btn-lg active">Game Settings</button>
-				</div>
-
 			</div>
+
 		</div>
 	</div>
 </div>
+<footer id="footer">Tzlil & Omer site </footer>
 <script type="text/javascript" src="js/menu.js"></script>
 <audio controls style='display:none'>
 	<source src="sound/moshik.mp3" type="audio/mpeg" >
 </audio>
 </div>
+
 </body>
 </html>

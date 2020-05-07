@@ -22,7 +22,7 @@ var keyUp=38;
 var keyDown=40;
 var keyLeft=37;
 var keyRight=39;
-var gameTime=60;
+var gameTime=10;
 var numOfBalls=50;
 var point5Balls="#cc3300";
 var point15Balls="#0000FF";
@@ -55,9 +55,9 @@ function beginGame() {
 }
 
 function drawHearts() {
-	heartContext.clearRect(0,0,400,80);
+	heartContext.clearRect(0,0,250,80);
 	for (let i = 0; i < pacmanLives; i++) {
-		heartContext.drawImage(heartImage,i*80,20,60,60)
+		heartContext.drawImage(heartImage,i*50,20,60,60)
 	}
 }
 function drawBonusBug() {
@@ -77,6 +77,8 @@ function drawRightPacman(center) {
 	context.lineTo(center.i*60+30, center.j*60+30);
 	context.fillStyle = pac_color; //color
 	context.fill();
+	context.strokeStyle="black";
+	context.stroke();
 	context.beginPath(); //pacman eye
 	context.arc(center.i* 60 + 30 + 5, center.j* 60 + 30 - 15, 3, 0, 2 * Math.PI); // circle
 	context.fillStyle = "black"; //color
@@ -89,6 +91,8 @@ function drawLeftPacman(center) {
 	context.lineTo(center.i*60+30, center.j*60+30);
 	context.fillStyle = pac_color; //color
 	context.fill();
+	context.strokeStyle="black";
+	context.stroke();
 	context.beginPath(); //pacman eye
 	context.arc(center.i* 60 + 30 + 5, center.j* 60 + 30 - 15, 3, 0, 2 * Math.PI); // circle
 	context.fillStyle = "black"; //color
@@ -101,6 +105,8 @@ function drawUpPacman(center) {
 	context.lineTo(center.i*60+30, center.j*60+30);
 	context.fillStyle = pac_color; //color
 	context.fill();
+	context.strokeStyle="black";
+	context.stroke();
 	context.beginPath(); //pacman eye
 	context.arc(center.i* 60 + 30 - 15, center.j* 60 + 30 +5, 3, 0, 2* Math.PI); // circle
 	context.fillStyle = "black"; //color
@@ -114,6 +120,8 @@ function drawDownPacman(center) {
 	context.lineTo(center.i*60+30, center.j*60+30);
 	context.fillStyle = pac_color; //color
 	context.fill();
+	context.strokeStyle="black";
+	context.stroke();
 	context.beginPath(); //pacman eye
 	context.arc(center.i* 60 + 30 + 5, center.j* 60 + 30 - 15, 3, 0, 2* Math.PI); // circle
 	context.fillStyle = "black"; //color
@@ -124,7 +132,6 @@ function drawDownPacman(center) {
 function init() {
 	board = new Array();
 	score = 0;
-	monsterImage=new Image();
 	monster1Image=new Image();
 	monster2Image=new Image();
 	monster3Image=new Image();
@@ -135,12 +142,12 @@ function init() {
 	bonusBugImage=new Image();
 	candyHeartImage=new Image();
 	gameOverImg.src="image/gameover2.png";
-	winnerImg.src="image/winner.jpg";
+	winnerImg.src="image/winner3.png";
 	monster1Image.src="image/blinky.png";
 	monster2Image.src="image/pinky.png";
 	monster3Image.src="image/inky.png";
 	monster4Image.src="image/clyde.png";
-	heartImage.src="image/heart.jpg";
+	heartImage.src="image/redheart.png";
 	bonusBugImage.src="image/bee.png";
 	candyHeartImage.src="image/candy.png";
 	pac_color = "yellow";
@@ -420,16 +427,18 @@ function UpdatePosition() {
 	if (score >= 60 && time_elapsed <= 10) {
 		pac_color = "green";
 	}
-	if(time_elapsed>=gameTime){
-		drawGameOver();
-		setTimeout(function (){window.alert("You are better than "+score+" points");}, 250);
-		finishGame();
-	}
+	if (time_elapsed>=gameTime ) {
+		if(score<=100){
+			drawGameOver();
+			setTimeout(function (){window.alert("You are better than "+score+" points");}, 250)
+			finishGame();
+		}
+		else {
+			drawWinner();
+			setTimeout(function () {drawWinner();window.alert("Winner!!!");}, 250)
+			finishGame();
 
-	if(score >= 100) {
-		drawWinner();
-		setTimeout(function () {window.alert("Winner!!!");}, 250);
-		finishGame();
+		}
 	}
 	if(checkLoss()){
 		pacmanLives--;
@@ -535,7 +544,7 @@ function drawGameOver() {
 	context.drawImage(gameOverImg, 50,50,500,500);
 }
 function drawWinner() {
-	context.drawImage(winnerImg, 50,50,400,400);
+	context.drawImage(winnerImg,  50,50,500,500);
 }
 
 

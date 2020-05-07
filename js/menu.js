@@ -1,23 +1,111 @@
 var sessionStorage
 var curDiv=document.getElementById('welcomeDiv');
 var currUser;
+var headCan ;
+var ghost1Image;
+var ghost2Image;
+var ghost3Image;
+var ghost4Image;
+var pacmanImage;
+var pacmanMirrorImage;
+var ghostArr;
+var intervalGhost;
+var fistGhostPosition=-40;
+var ghostEatPac;
+var backImg;
+var context5;
+var context15;
+var context25;
+$(document).ready(function () {
+    context5=color5canvas.getContext("2d");
+    context15=color15canvas.getContext("2d");
+    context25=color25canvas.getContext("2d");
+    sessionStorage.setItem("p", "p");
+    headCan= headCanvas.getContext("2d");
+    ghost1Image=new Image();
+    ghost2Image=new Image();
+    ghost3Image=new Image();
+    ghost4Image=new Image();
+    pacmanImage=new Image();
+    pacmanMirrorImage=new Image();
+    backImg=new Image();
+    backImg.src="https://www.toptal.com/designers/subtlepatterns/patterns/debut_light.png";
+    ghost1Image.src="image/blinky.png";
+    ghost2Image.src="image/pinky.png";
+    ghost3Image.src="image/inky.png";
+    ghost4Image.src="image/clyde.png";
+    pacmanImage.src="image/pacman.png";
+    pacmanMirrorImage.src="image/pacmanMirror.png";
+    ghostArr=new Array();
+    ghostEatPac=true;
+/*    ghostPosition=new Array();
+    for(let i=0;i<4;i++)
+        for(let j=0;j<4;j++)
+        ghostPosition[i]=[i,i];*/
+    ghostArr[0]=ghost1Image;
+    ghostArr[1]=ghost2Image;
+    ghostArr[2]=ghost3Image;
+    ghostArr[3]=ghost4Image;
+    ghostArr[4]=pacmanImage;
+    intervalGhost = setInterval(moveGhost, 200);
+});
+function moveGhost() {
+    updateGhostPosition();
+    drawMGhost();
+}
+function updateGhostPosition() {
+    if (fistGhostPosition==800)
+        ghostEatPac=false;
+    if(fistGhostPosition==-200)
+        ghostEatPac=true;
+    if (ghostEatPac) {
+        fistGhostPosition += 40;
+        ghostArr[4]=pacmanImage;
+    }
+    else {
+        fistGhostPosition -= 40;
+        ghostArr[4]=pacmanMirrorImage;
+    }
+}
+function drawMGhost() {
+    let space = 40;
+/*        headCan.beginPath()
+        headCan.rect(0,0,800,25);
+        headCan.fillStyle = "white"; //color
+        headCan.fill();*/
+        headCan.drawImage(backImg,0,0,800,25);
+    for(let i=0;i<5;i++) {
+        headCan.drawImage(ghostArr[i], i * 20 + space * i + fistGhostPosition, 5, 20, 20)
 
-
+    }
+}
 function show(param_div_id) {
     curDiv.style.display = "none";
     curDiv=document.getElementById(param_div_id);
     curDiv.style.display = "block";
 }
 
-$( ".register" ).click(function() {
+$( "#aRegister" ).click(function() {
+    finishGame();
+    $("#username").val('');
+    $("#password").val('');
+    $("#confirm_password").val('');
+    $("#email").val('');
+    $("#datepicker").val('');
     show('registerDiv');
 });
 
-$( ".login" ).click(function() {
+$( "#aLogin" ).click(function() {
+    finishGame();
+    $("#loginUsername").val('');
+    $("#loginPassword").val('');
     show('loginDiv');
 });
-
-$( "#about" ).click(function() {
+$( "#aWelcome" ).click(function() {
+    finishGame();
+    show('welcomeDiv');
+});
+$( "#aAbout" ).click(function() {
     modal.style.display = "block";
     document.onkeydown = function(evt) {
         evt = evt || window.event;
@@ -41,9 +129,9 @@ window.onclick = function(event) {
     }
 }
 
-$(document).ready(function() {
+/*$(document).ready(function() {
     sessionStorage.setItem("p", "p");
-});
+});*/
 function checkIfUserExist()
 {
     var username = $("#loginUsername"). val();
@@ -51,7 +139,7 @@ function checkIfUserExist()
     var user = sessionStorage.getItem(username);
     if (user!=null && user==pass){
         alert("Login successfully");
-        $("#welcome a")[0].innerHTML="welcome " + username;
+        $("#aWelcome").val("Welcome " + username);
         currUser=user;
         return true;
     }
@@ -123,7 +211,7 @@ function getRandomColor() {
     }
     return color;
 }
-$('#gameSettingform').submit(function () {
+$('#gameSettingform').submit(function initGame () {
     keyUp=$("#keyup_Output").val();
     keyDown=$("#keydown_Output").val();
     keyLeft=$("#keyleft_Output").val();
@@ -142,12 +230,6 @@ $('#gameSettingform').submit(function () {
     $("#lblnumOfMons_Output").val(numOfMonsters);
     $("#lblgameTime_Output").val(gameTime);
     $("#lblnumOfBalls_Output").val(numOfBalls);
-    var color5=document.getElementById("5pointColor");
-    var color15=document.getElementById("15pointColor");
-    var color25=document.getElementById("25pointColor");
-    var context5=color5.getContext("2d");
-    var context15=color15.getContext("2d");
-    var context25=color25.getContext("2d");
     context5.beginPath();
     context5.rect(0,0,20,10);
     context5.fillStyle=point5Balls;
@@ -180,8 +262,4 @@ $('#btnSetSettings').click(function () {
     finishGame();
     show("settingsDiv");
 })
-/*
-$('.welcomeDiv').click(function () {
-    show('welcomeDiv');
-})
-*/
+

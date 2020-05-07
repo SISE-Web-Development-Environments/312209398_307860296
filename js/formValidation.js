@@ -8,6 +8,7 @@ $.validator.setDefaults( {
         }
        else if (curDiv === document.getElementById('loginDiv')) {
            if (checkIfUserExist()) {
+
                 show("settingsDiv");
             }
 
