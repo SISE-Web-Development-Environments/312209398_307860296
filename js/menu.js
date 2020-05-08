@@ -87,6 +87,8 @@ function show(param_div_id) {
 
 $( "#aRegister" ).click(function() {
     finishGame();
+    $("#firstname").val('');
+    $("#lastname").val('');
     $("#username").val('');
     $("#password").val('');
     $("#confirm_password").val('');
@@ -94,12 +96,25 @@ $( "#aRegister" ).click(function() {
     $("#datepicker").val('');
     show('registerDiv');
 });
+$( "#signupBtn" ).click(function() {
+    finishGame();
+    $("#firstname").val('');
+    $("#lastname").val('');
+    $("#username").val('');
+    $("#password").val('');
+    $("#confirm_password").val('');
+    $("#email").val('');
+    $("#datepicker").val('');
+});
 
 $( "#aLogin" ).click(function() {
-    finishGame();
     $("#loginUsername").val('');
     $("#loginPassword").val('');
     show('loginDiv');
+});
+$( "#loginBtn" ).click(function() {
+    $("#loginUsername").val('');
+    $("#loginPassword").val('');
 });
 $( "#aWelcome" ).click(function() {
     finishGame();
@@ -140,7 +155,7 @@ function checkIfUserExist()
     var user = sessionStorage.getItem(username);
     if (user!=null && user==pass){
         alert("Login successfully");
-        currUser=user;
+        currUser=username;
         return true;
     }
     else

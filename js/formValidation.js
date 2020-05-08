@@ -18,6 +18,16 @@ $.validator.setDefaults( {
 $( document ).ready( function () {
     $( "#signupForm" ).validate( {
         rules: {
+            firstname: {
+                required: true,
+                minlength: 2,
+                textOnly:true
+            },
+            lastname: {
+                required: true,
+                minlength: 2,
+                textOnly:true
+            },
             username: {
                 required: true,
                 minlength: 2
@@ -42,9 +52,19 @@ $( document ).ready( function () {
 
         },
         messages: {
+            firstname: {
+                required: "Please enter a first name",
+                minlength: "Your first name must consist of at least 2 characters",
+                textOnly : "The name should contain only characters"
+            },
+            lastname: {
+                required: "Please enter a last name",
+                minlength: "Your username must consist of at least 2 characters",
+                textOnly : "The name should contain only characters"
+            },
             username: {
                 required: "Please enter a username",
-                minlength: "Your username must consist of at least 2 characters"
+                textOnly: "Your username must consist of at least 2 characters"
             },
             datepicker: {
                 required: "Please provide a birth date",
@@ -140,4 +160,20 @@ $.validator.addMethod("pwcheck", function(value) {
         && /[a-z]/.test(value) // has a lowercase letter
         && /\d/.test(value) // has a digit
 });
+$.validator.addMethod("textOnly",
+    function (value, element) {
 
+        var numArray =
+            ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        var containsNumber = false;
+
+        $.each(value.split(''), function () {
+            if (numArray.indexOf($(this)[0]) > -1) {
+                containsNumber = true;
+                return false;
+            }
+        });
+
+        return !containsNumber;
+    },
+);
